@@ -1,61 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #0a0a0a;
-  color: white;
+  background-color: #FFFFFF;
+  color: #000000;
   font-family: 'Space Grotesk', sans-serif;
+  overflow-x: hidden;
 }
 
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
+@layer components {
+  .neo-card {
+    @apply bg-white border-4 border-black shadow-neo transition-all;
+  }
+  
+  .neo-button {
+    @apply bg-white border-4 border-black shadow-neo px-8 py-4 font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-neo-hover active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all cursor-pointer;
+  }
 
-.glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
+  .neo-input {
+    @apply bg-white border-4 border-black shadow-neo-sm px-6 py-4 focus:outline-none focus:bg-primary/10 focus:shadow-neo transition-all font-bold text-black placeholder:text-black/30;
+  }
 
-.text-gradient {
-  background: linear-gradient(to right, #ffffff, #a1a1a1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+  .brutal-grid {
+    background-image: radial-gradient(circle, #000000 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 
-.text-gold {
-  background: linear-gradient(to right, #D4AF37, #F5E050);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  .brutal-stripes {
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.05) 10px,
+      rgba(0, 0, 0, 0.05) 20px
+    );
+  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 20px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #000000;
+  border-left: 4px solid #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a1a1a;
-  border-radius: 4px;
+  background: #FFE600;
+  border: 6px solid #000000;
+  box-shadow: inset -4px -4px 0px rgba(0,0,0,0.5);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #FF90E8;
+}
+
+::selection {
+  background-color: #000000;
+  color: #FFE600;
+}
+
+.selection-primary ::selection {
+  @apply bg-primary text-black;
+}
+
+.marquee-container {
+  @apply overflow-hidden whitespace-nowrap bg-black text-white py-6 border-y-[12px] border-black;
+}
+
+.marquee-content {
+  @apply inline-block animate-marquee font-black uppercase tracking-[0.5em] text-4xl;
+}
+
+/* Custom Utilities */
+.text-outline {
+  -webkit-text-stroke: 2px black;
+  color: transparent;
+}
+
+.neo-blur {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
 }

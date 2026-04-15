@@ -1,55 +1,106 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Cpu, Code, Database, Shield } from 'lucide-react'
+import { Cpu, Layout, Database, Terminal, Star, ArrowRight } from 'lucide-react'
 
 const About = () => {
-  const skills = [
-    { icon: <Cpu className="text-primary" />, title: "Computer Architecture", desc: "RISC-V, Digital Logic, gem5" },
-    { icon: <Code className="text-primary" />, title: "Frontend", desc: "React, Vite, Tailwind CSS" },
-    { icon: <Database className="text-primary" />, title: "Backend", desc: "Java, Python, C++, MySQL" },
-    { icon: <Shield className="text-primary" />, title: "Cybersecurity", desc: "System security, RSA, AES" }
+  const bentoItems = [
+    {
+      title: "Full-Stack Engineering",
+      desc: "Architecting scalable web applications with React, Node.js, and modern ecosystems.",
+      icon: <Layout className="text-black" />,
+      color: "bg-primary",
+      className: "lg:col-span-4"
+    },
+    {
+      title: "Computer Architecture",
+      desc: "Designing and optimizing RISC-V based systems and hardware-software interfaces.",
+      icon: <Cpu className="text-black" />,
+      color: "bg-secondary",
+      className: "lg:col-span-8"
+    },
+    {
+      title: "Low-Level Development",
+      desc: "Writing performance-critical code in C/C++ from firmware to high-speed algorithms.",
+      icon: <Terminal className="text-black" />,
+      color: "bg-accent",
+      className: "lg:col-span-7"
+    },
+    {
+      title: "Systems Optimization",
+      desc: "Fine-tuning digital infrastructure for maximum throughput and minimal latency.",
+      icon: <Database className="text-black" />,
+      color: "bg-success",
+      className: "lg:col-span-5"
+    }
   ]
 
   return (
-    <section id="about" className="h-full flex flex-col justify-center px-24 py-12">
-      <div className="max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="mb-16"
-        >
-          <h2 className="text-5xl font-bold font-heading mb-8">
-            The <span className="text-primary">Vision</span>
-          </h2>
-          <p className="text-2xl text-gray-300 leading-relaxed max-w-4xl font-body">
-            I'm a computer science student at Model Engineering College, Kochi. 
-            My passion lies in understanding how things work from the ground up—whether 
-            it's optimizing a RISC-V pipeline processor or building seamless web interfaces.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-2 gap-6">
-          {skills.map((skill, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              whileHover={{ scale: 1.02 }}
-              className="glass-card p-8 rounded-2xl flex items-start gap-6 cursor-pointer"
-            >
-              <div className="p-4 bg-white/5 rounded-xl border border-white/10 group-hover:border-primary/50 transition-colors">
-                {skill.icon}
+    <div id="about" className="w-full py-[5vh] md:py-[8vh]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-[4vh] lg:gap-12 items-start mb-[6vh] lg:mb-16">
+        <div className="lg:col-span-7 text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex items-center gap-3 mb-4 md:mb-6">
+              <div className="w-[clamp(40px,10vw,60px)] h-[clamp(20px,5vw,30px)] bg-black flex items-center justify-center shadow-neo-sm">
+                <span className="text-white text-[clamp(7px,1.5vw,9px)] font-black tracking-widest uppercase">SYSLOG</span>
               </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">{skill.title}</h3>
-                <p className="text-gray-400 text-sm">{skill.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+              <span className="text-black font-black tracking-[0.3em] text-[clamp(7px,1.5vw,9px)] uppercase underline decoration-[clamp(2px,0.4vw,4px)] underline-offset-[clamp(4px,0.8vw,6px)]">Identity.01</span>
+            </div>
+            <h2 className="text-[clamp(2rem,8vw,5.5rem)] font-black font-heading mb-4 md:mb-8 tracking-tighter leading-[0.85] text-black">
+              THE ENGINEERING <br />
+              <span className="bg-primary border-[clamp(3px,0.5vw,6px)] border-black px-[4vw] md:px-6 shadow-neo-md md:shadow-neo-lg inline-block -rotate-1 mt-2">MINDSET.</span>
+            </h2>
+          </motion.div>
+        </div>
+        <div className="lg:col-span-5 lg:pt-12 text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ delay: 0.2 }}
+            className="bg-black text-white p-[6vw] md:p-8 border-[clamp(3px,0.5vw,6px)] border-black shadow-neo-md md:shadow-neo-lg rotate-1 relative"
+          >
+            <div className="absolute top-0 left-0 w-full h-[clamp(4px,0.8vw,6px)] bg-primary" />
+            <p className="text-[clamp(1rem,2.2vw,1.5rem)] font-black font-body leading-tight">
+              Based at <span className="text-primary underline decoration-[clamp(2px,0.4vw,4px)] underline-offset-4">Model Engineering College</span>. 
+              I specialize in deconstructing complex systems and rebuilding them with extreme mathematical and logical precision.
+            </p>
+          </motion.div>
         </div>
       </div>
-    </section>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-[3vh] md:gap-6 text-left">
+        {bentoItems.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: i * 0.1 }}
+            whileHover={{ scale: 1.02, rotate: i % 2 === 0 ? 0.5 : -0.5 }}
+            className={`${item.className} ${item.color} border-[clamp(3px,0.5vw,6px)] border-black shadow-neo-md md:shadow-neo-lg p-[6vw] md:p-8 flex flex-col justify-between group cursor-pointer active:shadow-none transition-all relative overflow-hidden min-h-[clamp(200px,40vh,350px)]`}
+          >
+            <div className="absolute top-0 right-0 p-[4vw] md:p-6 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-[-10px] group-hover:translate-y-[10px]">
+              <ArrowRight size={24} className="-rotate-45 md:w-8 md:h-8" />
+            </div>
+
+            <div className="bg-white border-[clamp(2px,0.4vw,4px)] border-black p-[3vw] md:p-4 w-fit shadow-neo-sm group-hover:-translate-y-2 group-hover:bg-black group-hover:text-white transition-all">
+              {React.cloneElement(item.icon, { className: "w-[clamp(1.5rem,3.5vw,2rem)] h-[clamp(1.5rem,3.5vw,2rem)] text-black group-hover:text-white transition-colors", strokeWidth: 3 })}
+            </div>
+            
+            <div className="mt-[4vh] md:mt-8">
+              <div className="text-[clamp(7px,1.5vw,9px)] font-black uppercase tracking-[0.2em] text-black/40 mb-2 md:mb-3">Core_Competency v2.4</div>
+              <h3 className="text-[clamp(1.5rem,4vw,2.5rem)] font-black font-heading mb-2 md:mb-4 text-black tracking-tighter uppercase leading-[0.9]">{item.title}</h3>
+              <p className="text-black font-black font-body text-[clamp(0.9rem,1.8vw,1.2rem)] leading-tight opacity-90 max-w-md">{item.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
   )
 }
 

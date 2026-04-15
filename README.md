@@ -1,4 +1,4 @@
-# Fayaz Unas | Masterpiece Portfolio
+# Portfolio
 
 A high-performance, visually stunning portfolio website built with **React**, **Tailwind CSS**, and **Framer Motion**. This project features a premium **Dark Glassmorphism** aesthetic with immersive horizontal scroll-driven animations.
 
@@ -65,4 +65,3 @@ src/
 - **GitHub**: [@Fayaz-unas](https://github.com/Fayaz-unas)
 
 ---
-Built with ❤️ by Fayaz Unas.
