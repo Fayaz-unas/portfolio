@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, Github, Linkedin, Send, MessageCircle, Instagram, X, CheckCircle2, AlertCircle } from 'lucide-react'
+import { Mail, Github, Linkedin, Send, Instagram, X, CheckCircle2, AlertCircle } from 'lucide-react'
 import Magnetic from './Magnetic'
 
 const Notification = ({ type, message, onClose }) => {
@@ -96,7 +96,7 @@ const Contact = () => {
           message: 'CRITICAL ERROR: Data transmission failed. Please try again.'
         })
       }
-    } catch (error) {
+    } catch {
       setNotification({
         type: 'error',
         message: 'SYSTEM OFFLINE: Could not establish a secure uplink. Please check your connection.'

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
-import { ArrowUpRight, Shield, Cpu, Code2, Zap, Github, Linkedin, Instagram } from 'lucide-react'
+import { Shield, Cpu, Code2, Github, Linkedin, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
 
 const Hero = () => {
-  const [time, setTime] = useState(new Date())
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 500], [1, 0])
   const scale = useTransform(scrollY, [0, 500], [1, 0.9])
@@ -17,7 +16,6 @@ const Hero = () => {
   const springY = useSpring(mouseY, { damping: 50, stiffness: 400 })
 
   useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000)
     const handleMouseMove = (e) => {
       const { clientX, clientY } = e
       const { innerWidth, innerHeight } = window
@@ -26,10 +24,9 @@ const Hero = () => {
     }
     window.addEventListener('mousemove', handleMouseMove)
     return () => {
-      clearInterval(timer)
       window.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [])
+  }, [mouseX, mouseY])
 
   return (
     <section className="relative min-h-[100svh] flex flex-col px-[5vw] md:px-[8vw] lg:px-[10vw] overflow-x-clip bg-white brutal-grid pb-[2vh] pt-0">

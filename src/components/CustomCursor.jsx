@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 
 const CustomCursor = () => {
@@ -33,7 +33,7 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseover', handleMouseOver)
     }
-  }, [])
+  }, [mouseX, mouseY])
 
   return (
     <motion.div

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -9,11 +9,11 @@ import CustomCursor from './components/CustomCursor'
 const HorizontalSection = () => {
   const targetRef = useRef(null)
   const scrollRef = useRef(null)
-  const [scrollWidth, setScrollWidth] = React.useState(0)
-  const [screenWidth, setScreenWidth] = React.useState(0)
-  const [isMobile, setIsMobile] = React.useState(false)
+  const [scrollWidth, setScrollWidth] = useState(0)
+  const [screenWidth, setScreenWidth] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const calculateWidths = () => {
       if (scrollRef.current) {
         setScrollWidth(scrollRef.current.scrollWidth)

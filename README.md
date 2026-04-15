@@ -1,12 +1,12 @@
 # Portfolio
 
-A high-performance, visually stunning portfolio website built with **React**, **Tailwind CSS**, and **Framer Motion**. This project features a premium **Dark Glassmorphism** aesthetic with immersive horizontal scroll-driven animations.
+A high-performance, visually striking portfolio website built with **React**, **Tailwind CSS**, and **Framer Motion**. This project features a bold **Neobrutalist** aesthetic with immersive horizontal scroll-driven animations and high-contrast logic.
 
 ## ✨ Features
 
-- **Horizontal Scroll Journey**: Immersive narrative flow through About and Projects sections.
-- **Dark Glassmorphism UI**: Deep blacks, translucent cards, and smooth gold/neon accents.
-- **Interactive Bento Grid**: Skill showcase with magnetic hover-tilt effects.
+- **Horizontal Scroll Journey**: Immersive narrative flow through About and Projects sections on desktop, optimized vertical stack on mobile.
+- **Neobrutalist UI**: High contrast, thick borders, vibrant yellow/pink/accent colors, and raw, brutalist logic.
+- **Interactive Bento Grid**: Skill showcase with magnetic hover-tilt effects and technical artifact categorization.
 - **Custom Motion Cursor**: Fluid, spring-animated cursor with interactive state awareness.
 - **Project Showcase**: Rich project cards for NAVIA, SHINKEI, and more with integrated GitHub links.
 - **Responsive Design**: Seamlessly transitions from horizontal desktop layouts to vertical mobile stacks.
@@ -17,7 +17,7 @@ A high-performance, visually stunning portfolio website built with **React**, **
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Fonts**: [Archivo](https://fonts.google.com/specimen/Archivo) & [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk)
+- **Fonts**: [Archivo](https://fonts.google.com/specimen/Archivo), [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) & [Space Mono](https://fonts.google.com/specimen/Space+Mono)
 
 ## 🚀 Getting Started
 

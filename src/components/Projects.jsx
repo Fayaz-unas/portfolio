@@ -1,6 +1,5 @@
-import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Github, ExternalLink, ChevronRight, Zap } from 'lucide-react'
+import { ArrowUpRight, Github, ChevronRight, Zap } from 'lucide-react'
 import Magnetic from './Magnetic'
 
 const Projects = () => {
