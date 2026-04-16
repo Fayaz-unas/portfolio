@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
-const Magnetic = ({ children, strength = 0.5 }) => {
+const Magnetic = React.memo(({ children, strength = 0.5, className = "" }) => {
   const ref = useRef(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
 
@@ -24,11 +24,11 @@ const Magnetic = ({ children, strength = 0.5 }) => {
       onMouseLeave={handleMouseLeave}
       animate={{ x: position.x, y: position.y }}
       transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.1 }}
-      className="magnetic-wrap"
+      className={`magnetic-wrap ${className}`}
     >
       {children}
     </motion.div>
   )
-}
+})
 
 export default Magnetic

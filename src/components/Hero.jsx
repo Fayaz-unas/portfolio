@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'fram
 import { Shield, Cpu, Code2, Github, Linkedin, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
 
-const Hero = () => {
+const Hero = React.memo(() => {
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 500], [1, 0])
   const scale = useTransform(scrollY, [0, 500], [1, 0.9])
@@ -82,15 +82,16 @@ const Hero = () => {
           <div className="lg:col-span-5 flex flex-col gap-[2.5vh] relative z-10 w-full max-w-[450px] lg:max-w-none mx-auto lg:mx-0 pt-[5vh] lg:pt-0 lg:mt-[20vh]">
             <div className="flex gap-[2.5vw] lg:gap-[1.5vw]">
               {[
-                { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black" },
-                { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white" },
-                { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black" },
+                { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black", label: "Github Profile" },
+                { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white", label: "Linkedin Profile" },
+                { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Instagram Profile" },
               ].map((social, i) => (
                 <Magnetic key={i} strength={0.3}>
                   <a 
                     href={social.href} 
                     target="_blank" 
                     rel="noreferrer" 
+                    aria-label={social.label}
                     className={`${social.color} ${social.hover} border-[clamp(2px,0.3vw,4px)] border-black p-[3.5vw] lg:p-[1.2vw] shadow-neo hover:translate-y-[-0.5vh] hover:shadow-neo-md active:translate-y-0 active:shadow-neo transition-all flex-1 flex items-center justify-center group/social`}
                   >
                     {React.cloneElement(social.icon, { className: `w-[clamp(1.2rem,3.5vw,2rem)] h-[clamp(1.2rem,3.5vw,2rem)] ${social.color === "bg-accent" ? "text-white group-hover/social:text-accent" : "text-black group-hover/social:text-white"} transition-colors`, strokeWidth: 3 })}
@@ -142,6 +143,6 @@ const Hero = () => {
       </div>
     </section>
   )
-}
+})
 
 export default Hero

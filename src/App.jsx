@@ -1,76 +1,27 @@
-import { useRef, useState, useEffect } from 'react'
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
+import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Hero from './components/Hero'
 import About from './components/About'
-import Projects from './components/Projects'
+import HorizontalSection from './components/HorizontalSection'
 import Contact from './components/Contact'
 import CustomCursor from './components/CustomCursor'
-
-const HorizontalSection = () => {
-  const targetRef = useRef(null)
-  const scrollRef = useRef(null)
-  const [scrollWidth, setScrollWidth] = useState(0)
-  const [screenWidth, setScreenWidth] = useState(0)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const calculateWidths = () => {
-      if (scrollRef.current) {
-        setScrollWidth(scrollRef.current.scrollWidth)
-      }
-      setScreenWidth(window.innerWidth)
-      setIsMobile(window.innerWidth < 1024)
-    }
-
-    calculateWidths()
-    window.addEventListener('resize', calculateWidths)
-    return () => window.removeEventListener('resize', calculateWidths)
-  }, [])
-
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"]
-  })
-
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  })
-
-  const x = useTransform(smoothProgress, [0, 1], [0, -(scrollWidth - screenWidth)])
-
-  if (isMobile) {
-    return (
-      <div className="bg-white">
-        <div className="px-6 py-16 border-t-[12px] border-black bg-surface overflow-hidden">
-          <Projects />
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <section ref={targetRef} className="relative h-[300vh] bg-white">
-      <div className="sticky top-0 h-screen flex flex-col items-start overflow-hidden border-t-[12px] border-black">
-        <motion.div 
-          ref={scrollRef}
-          style={{ x }} 
-          className="flex h-full w-max items-stretch will-change-transform"
-        >
-          <div className="flex-shrink-0 bg-surface flex items-center px-6 md:px-12 lg:px-24 border-l-[12px] border-black">
-            <Projects />
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  )
-}
+import Notification from './components/Notification'
 
 function App() {
+  const [notification, setNotification] = useState(null)
+
   return (
     <div className="relative bg-white font-body antialiased">
       <CustomCursor />
+      
+      <AnimatePresence>
+        {notification && (
+          <Notification 
+            {...notification} 
+            onClose={() => setNotification(null)} 
+          />
+        )}
+      </AnimatePresence>
       
       <main className="relative">
         <Hero />
@@ -81,7 +32,7 @@ function App() {
         </div>
         <HorizontalSection />
         <div className="relative z-10 bg-white border-t-[12px] border-black">
-          <Contact />
+          <Contact setNotification={setNotification} />
         </div>
       </main>
       
@@ -110,18 +61,18 @@ function App() {
               <div className="space-y-6 md:space-y-8">
                 <h4 className="text-primary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-primary w-fit pb-2">DIRECTORY</h4>
                 <div className="flex flex-col gap-4 md:gap-6 font-black text-base md:text-lg uppercase tracking-widest">
-                  <a href="#about" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Identity</a>
-                  <a href="#projects" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Artifacts</a>
-                  <a href="#contact" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Connect</a>
+                  <a href="#about" aria-label="Go to Identity section" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Identity</a>
+                  <a href="#projects" aria-label="Go to Artifacts section" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Artifacts</a>
+                  <a href="#contact" aria-label="Go to Connect section" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Connect</a>
                 </div>
               </div>
               <div className="space-y-6 md:space-y-8">
                 <h4 className="text-secondary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-secondary w-fit pb-2">ENDPOINTS</h4>
                 <div className="flex flex-col gap-4 md:gap-6 font-black text-base md:text-lg uppercase tracking-widest">
-                  <a href="https://github.com/Fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Github</a>
-                  <a href="https://linkedin.com/in/fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Linkedin</a>
-                  <a href="https://www.instagram.com/fayaz_unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Instagram</a>
-                  <a href="mailto:fayazunas@gmail.com" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Email</a>
+                  <a href="https://github.com/Fayaz-unas" target="_blank" rel="noreferrer" aria-label="Github Profile" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Github</a>
+                  <a href="https://linkedin.com/in/fayaz-unas" target="_blank" rel="noreferrer" aria-label="Linkedin Profile" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Linkedin</a>
+                  <a href="https://www.instagram.com/fayaz_unas" target="_blank" rel="noreferrer" aria-label="Instagram Profile" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Instagram</a>
+                  <a href="mailto:fayazunas@gmail.com" aria-label="Send Email" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Email</a>
                 </div>
               </div>
               <div className="space-y-6 md:space-y-8 hidden sm:block">

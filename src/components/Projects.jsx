@@ -1,8 +1,9 @@
+import React from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, ChevronRight, Zap } from 'lucide-react'
 import Magnetic from './Magnetic'
 
-const Projects = () => {
+const Projects = React.memo(() => {
   const projects = [
     {
       title: "NAVIA",
@@ -65,6 +66,7 @@ const Projects = () => {
               href="https://github.com/Fayaz-unas" 
               target="_blank" 
               rel="noreferrer" 
+              aria-label="Explore all repositories on GitHub"
               className="neo-button h-[clamp(50px,12vw,80px)] bg-black text-white text-[clamp(9px,1.8vw,14px)] px-[6vw] lg:px-12 shadow-neo-md hover:bg-primary hover:text-black hover:shadow-neo active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-4 group/repo"
             >
               <span className="font-black uppercase tracking-widest">EXPLORE_REPOSITORIES</span>
@@ -119,6 +121,7 @@ const Projects = () => {
                       href={project.link} 
                       target="_blank" 
                       rel="noreferrer" 
+                      aria-label={`View source code for ${project.title} on GitHub`}
                       className="neo-button h-[clamp(50px,12vw,80px)] bg-black text-white text-[clamp(9px,1.8vw,13px)] px-[6vw] lg:px-16 shadow-neo-md hover:bg-white hover:text-black hover:shadow-neo active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-4 group/btn"
                     >
                       <span className="font-black uppercase tracking-[0.2em]">VIEW_SOURCE_CODE</span>
@@ -134,6 +137,6 @@ const Projects = () => {
       </div>
     </div>
   )
-}
+})
 
 export default Projects

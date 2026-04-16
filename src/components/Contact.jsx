@@ -1,121 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Mail, Github, Linkedin, Send, Instagram, X, CheckCircle2, AlertCircle } from 'lucide-react'
+import React from 'react'
+import { motion } from 'framer-motion'
+import { Mail, Github, Linkedin, Send, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
+import { useContactForm } from '../hooks/useContactForm'
 
-const Notification = ({ type, message, onClose }) => {
-  useEffect(() => {
-    const timer = setTimeout(onClose, 5000)
-    return () => clearTimeout(timer)
-  }, [onClose])
-
-  const isSuccess = type === 'success'
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50, scale: 0.9, rotate: -2 }}
-      animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-      exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
-      className="fixed bottom-10 right-5 md:right-10 z-[100] max-w-[90vw] w-[400px]"
-    >
-      <div className={`relative bg-white border-4 border-black p-6 shadow-[8px_8px_0px_rgba(0,0,0,1)] flex items-start gap-4 overflow-hidden`}>
-        <div className={`absolute top-0 left-0 w-2 h-full ${isSuccess ? 'bg-success' : 'bg-danger'}`} />
-        
-        <div className={`p-2 border-2 border-black ${isSuccess ? 'bg-success/10' : 'bg-danger/10'}`}>
-          {isSuccess ? (
-            <CheckCircle2 className="w-6 h-6 text-black" strokeWidth={3} />
-          ) : (
-            <AlertCircle className="w-6 h-6 text-black" strokeWidth={3} />
-          )}
-        </div>
-
-        <div className="flex-grow">
-          <h4 className="font-black uppercase tracking-widest text-[10px] text-black/40 mb-1">
-            {isSuccess ? 'SYSTEM_CONFIRMATION' : 'SYSTEM_ERROR'}
-          </h4>
-          <p className="font-black text-black leading-tight text-sm">
-            {message}
-          </p>
-        </div>
-
-        <button 
-          onClick={onClose}
-          className="hover:bg-black/5 p-1 transition-colors"
-        >
-          <X className="w-5 h-5 text-black" strokeWidth={3} />
-        </button>
-
-        {/* Progress Bar */}
-        <motion.div 
-          initial={{ width: '100%' }}
-          animate={{ width: '0%' }}
-          transition={{ duration: 5, ease: 'linear' }}
-          className={`absolute bottom-0 left-0 h-1 ${isSuccess ? 'bg-success' : 'bg-danger'}`}
-        />
-      </div>
-    </motion.div>
-  )
-}
-
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [notification, setNotification] = useState(null)
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    try {
-      const response = await fetch('https://formspree.io/f/mqkvnjed', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-
-      if (response.ok) {
-        setNotification({
-          type: 'success',
-          message: 'TRANSMISSION SUCCESSFUL: Your message has been received by the system.'
-        })
-        setFormData({ name: '', email: '', message: '' })
-      } else {
-        setNotification({
-          type: 'error',
-          message: 'CRITICAL ERROR: Data transmission failed. Please try again.'
-        })
-      }
-    } catch {
-      setNotification({
-        type: 'error',
-        message: 'SYSTEM OFFLINE: Could not establish a secure uplink. Please check your connection.'
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+const Contact = React.memo(({ setNotification }) => {
+  const { formData, isSubmitting, handleChange, handleSubmit } = useContactForm(setNotification)
 
   return (
     <section id="contact" className="min-h-screen flex items-center justify-center px-[5vw] lg:px-24 py-[8vh] lg:py-24 relative overflow-x-clip bg-white brutal-stripes">
-      <AnimatePresence>
-        {notification && (
-          <Notification 
-            {...notification} 
-            onClose={() => setNotification(null)} 
-          />
-        )}
-      </AnimatePresence>      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-[6vh] lg:gap-20 items-start relative z-10">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-[6vh] lg:gap-20 items-start relative z-10">
         
         {/* Left Content */}
         <div className="lg:col-span-5 lg:sticky lg:top-24">
@@ -139,8 +33,12 @@ const Contact = () => {
             </p>
 
             <div className="space-y-[3vh] lg:space-y-8">
-              <Magnetic strength={0.1}>
-                <a href="mailto:fayazunas@gmail.com" className="flex items-center gap-[4vw] lg:gap-6 group cursor-pointer bg-primary border-[clamp(4px,0.8vw,8px)] border-black p-[5vw] lg:p-8 shadow-neo-lg md:shadow-neo-xl hover:shadow-neo active:translate-x-1 active:translate-y-1 transition-all block">
+              <Magnetic strength={0.1} className="relative z-20 w-full">
+                <a 
+                  href="mailto:fayazunas@gmail.com" 
+                  aria-label="Send email to Fayaz Unas"
+                  className="flex items-center gap-[4vw] lg:gap-6 group bg-primary border-[clamp(4px,0.8vw,8px)] border-black p-[5vw] lg:p-8 shadow-neo-lg md:shadow-neo-xl hover:shadow-neo active:translate-x-1 active:translate-y-1 transition-all w-full"
+                >
                   <div className="p-[3vw] lg:p-6 bg-white border-[clamp(2px,0.4vw,4px)] border-black shadow-neo-sm md:shadow-neo-md group-hover:bg-black group-hover:text-white transition-colors">
                     <Mail className="w-[clamp(24px,5vw,32px)] h-[clamp(24px,5vw,32px)] text-black group-hover:text-white transition-colors" strokeWidth={3} />
                   </div>
@@ -152,16 +50,17 @@ const Contact = () => {
               </Magnetic>
               <div className="flex gap-[3vw] lg:gap-6">
                 {[
-                  { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black" },
-                  { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white" },
-                  { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black" }
+                  { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black", label: "Github Profile" },
+                  { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white", label: "Linkedin Profile" },
+                  { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Instagram Profile" }
                 ].map((social, i) => (
-                  <Magnetic key={i} strength={0.3}>
+                  <Magnetic key={i} strength={0.3} className="flex-1">
                     <a
                       href={social.href}
                       target="_blank"
                       rel="noreferrer"
-                      className={`${social.color} ${social.hover} border-[clamp(4px,0.8vw,8px)] border-black p-[5vw] lg:p-8 shadow-neo-md md:shadow-neo-lg hover:translate-y-[-6px] hover:shadow-neo-xl active:translate-y-0 active:shadow-neo transition-all block group/social`}
+                      aria-label={social.label}
+                      className={`${social.color} ${social.hover} border-[clamp(4px,0.8vw,8px)] border-black p-[5vw] lg:p-8 shadow-neo-md md:shadow-neo-lg hover:translate-y-[-6px] hover:shadow-neo-xl active:translate-y-0 active:shadow-neo transition-all block group/social h-full w-full flex items-center justify-center`}
                     >
                       {React.cloneElement(social.icon, { className: `w-[clamp(24px,5vw,32px)] h-[clamp(24px,5vw,32px)] ${social.color === "bg-accent" ? "text-white group-hover/social:text-accent" : "text-black group-hover/social:text-white"} transition-colors`, strokeWidth: 3 })}
                     </a>
@@ -195,8 +94,9 @@ const Contact = () => {
 
               <div className="pt-[4vh] lg:pt-10 grid grid-cols-1 md:grid-cols-2 gap-[3vh] lg:gap-10">
                 <div className="space-y-2 md:space-y-4 text-left">
-                  <label className="text-[clamp(8px,1.5vw,11px)] font-black text-black uppercase tracking-[0.3em] ml-2">Identity_Alias</label>
+                  <label htmlFor="name" className="text-[clamp(8px,1.5vw,11px)] font-black text-black uppercase tracking-[0.3em] ml-2">Identity_Alias</label>
                   <input 
+                    id="name"
                     type="text" 
                     name="name"
                     value={formData.name}
@@ -207,8 +107,9 @@ const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2 md:space-y-4 text-left">
-                  <label className="text-[clamp(8px,1.5vw,11px)] font-black text-black uppercase tracking-[0.3em] ml-2">Return_Address</label>
+                  <label htmlFor="email" className="text-[clamp(8px,1.5vw,11px)] font-black text-black uppercase tracking-[0.3em] ml-2">Return_Address</label>
                   <input 
+                    id="email"
                     type="email" 
                     name="email"
                     value={formData.email}
@@ -221,8 +122,9 @@ const Contact = () => {
               </div>
               
               <div className="space-y-2 md:space-y-4 text-left">
-                <label className="text-[clamp(8px,1.5vw,11px)] font-black text-black uppercase tracking-[0.3em] ml-2">Data_Payload</label>
+                <label htmlFor="message" className="text-[clamp(8px,1.5vw,11px)] font-black text-black uppercase tracking-[0.3em] ml-2">Data_Payload</label>
                 <textarea 
+                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -237,6 +139,7 @@ const Contact = () => {
                 <button 
                   type="submit"
                   disabled={isSubmitting}
+                  aria-label={isSubmitting ? "Sending message..." : "Send message"}
                   className="neo-button w-full h-[clamp(60px,15vw,96px)] bg-black text-white text-[clamp(1rem,2vw,1.25rem)] group/submit overflow-hidden border-[clamp(2px,0.4vw,8px)] shadow-neo-lg md:shadow-neo-xl active:shadow-neo disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-[3vw] lg:gap-6 uppercase font-black tracking-[0.4em]">
@@ -251,6 +154,6 @@ const Contact = () => {
       </div>
     </section>
   )
-}
+})
 
 export default Contact

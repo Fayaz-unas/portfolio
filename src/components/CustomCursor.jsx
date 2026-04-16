@@ -1,15 +1,13 @@
-import { useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 
-const CustomCursor = () => {
+const CustomCursor = React.memo(() => {
   const [isHovering, setIsHovering] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
   
-  // Head position (fastest)
   const headX = useMotionValue(0)
   const headY = useMotionValue(0)
 
-  // Respect system accessibility settings
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     setReduceMotion(mediaQuery.matches)
@@ -18,40 +16,62 @@ const CustomCursor = () => {
     return () => mediaQuery.removeEventListener('change', handler)
   }, [])
 
-  // Explicitly defined springs for maximum performance and React Hook compliance
-  // Each point has slightly more lag than the one before it
-  const s1x = useSpring(headX, { damping: 40, stiffness: 600, mass: 0.1 })
-  const s1y = useSpring(headY, { damping: 40, stiffness: 600, mass: 0.1 })
-  const s2x = useSpring(headX, { damping: 38, stiffness: 500, mass: 0.2 })
-  const s2y = useSpring(headY, { damping: 38, stiffness: 500, mass: 0.2 })
-  const s3x = useSpring(headX, { damping: 36, stiffness: 400, mass: 0.3 })
-  const s3y = useSpring(headY, { damping: 36, stiffness: 400, mass: 0.3 })
-  const s4x = useSpring(headX, { damping: 34, stiffness: 300, mass: 0.4 })
-  const s4y = useSpring(headY, { damping: 34, stiffness: 300, mass: 0.4 })
-  const s5x = useSpring(headX, { damping: 32, stiffness: 250, mass: 0.5 })
-  const s5y = useSpring(headY, { damping: 32, stiffness: 250, mass: 0.5 })
-  const s6x = useSpring(headX, { damping: 30, stiffness: 200, mass: 0.6 })
-  const s6y = useSpring(headY, { damping: 30, stiffness: 200, mass: 0.6 })
-  const s7x = useSpring(headX, { damping: 28, stiffness: 150, mass: 0.7 })
-  const s7y = useSpring(headY, { damping: 28, stiffness: 150, mass: 0.7 })
+  // Optimized spring chain for better connectivity
+  const s1x = useSpring(headX, { damping: 45, stiffness: 800, mass: 0.1 })
+  const s1y = useSpring(headY, { damping: 45, stiffness: 800, mass: 0.1 })
+  const s2x = useSpring(headX, { damping: 40, stiffness: 600, mass: 0.2 })
+  const s2y = useSpring(headY, { damping: 40, stiffness: 600, mass: 0.2 })
+  const s3x = useSpring(headX, { damping: 35, stiffness: 450, mass: 0.3 })
+  const s3y = useSpring(headY, { damping: 35, stiffness: 450, mass: 0.3 })
+  const s4x = useSpring(headX, { damping: 30, stiffness: 300, mass: 0.4 })
+  const s4y = useSpring(headY, { damping: 30, stiffness: 300, mass: 0.4 })
+  const s5x = useSpring(headX, { damping: 25, stiffness: 200, mass: 0.5 })
+  const s5y = useSpring(headY, { damping: 25, stiffness: 200, mass: 0.5 })
 
-  // Memoize points array to prevent re-allocation on every render
   const points = useMemo(() => [
     { x: s1x, y: s1y }, { x: s2x, y: s2y },
     { x: s3x, y: s3y }, { x: s4x, y: s4y },
-    { x: s5x, y: s5y }, { x: s6x, y: s6y },
-    { x: s7x, y: s7y }
-  ], [s1x, s1y, s2x, s2y, s3x, s3y, s4x, s4y, s5x, s5y, s6x, s6y, s7x, s7y])
+    { x: s5x, y: s5y }
+  ], [s1x, s1y, s2x, s2y, s3x, s3y, s4x, s4y, s5x, s5y])
+
+  const [hoveredRect, setHoveredRect] = useState({ width: 0, height: 0, borderRadius: 0 })
+  const [hoveredElement, setHoveredElement] = useState(null)
 
   const handleMouseMove = useCallback((e) => {
-    headX.set(e.clientX)
-    headY.set(e.clientY)
-  }, [headX, headY])
+    if (isHovering && hoveredElement) {
+      const rect = hoveredElement.getBoundingClientRect()
+      headX.set(rect.left + rect.width / 2)
+      headY.set(rect.top + rect.height / 2)
+    } else {
+      headX.set(e.clientX)
+      headY.set(e.clientY)
+    }
+  }, [headX, headY, isHovering, hoveredElement])
 
   const handleMouseOver = useCallback((e) => {
-    const target = e.target.closest('a, button, .cursor-pointer, .project-card, .magnetic-wrap, input, textarea')
-    setIsHovering(!!target)
-  }, [])
+    const target = e.target.closest('a, button')
+    if (target) {
+      const rect = target.getBoundingClientRect()
+      const style = window.getComputedStyle(target)
+      
+      setHoveredRect({
+        width: rect.width,
+        height: rect.height,
+        borderRadius: parseInt(style.borderRadius) || 0,
+      })
+      
+      const centerX = rect.left + rect.width / 2
+      const centerY = rect.top + rect.height / 2
+      headX.set(centerX)
+      headY.set(centerY)
+      
+      setHoveredElement(target)
+      setIsHovering(true)
+    } else {
+      setIsHovering(false)
+      setHoveredElement(null)
+    }
+  }, [headX, headY])
 
   useEffect(() => {
     if (reduceMotion) return
@@ -65,30 +85,53 @@ const CustomCursor = () => {
 
   if (reduceMotion) return null
 
+  const size = isHovering ? {
+    width: hoveredRect.width + 25,
+    height: hoveredRect.height + 25,
+    rx: hoveredRect.borderRadius + 2
+  } : {
+    width: 40,
+    height: 40,
+    rx: 20
+  }
+
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] mix-blend-difference will-change-transform">
-      <svg className="absolute inset-0 w-full h-full overflow-visible">
+      <svg className="absolute inset-0 w-full h-full overflow-visible pointer-events-none">
         <defs>
           <filter id="gooey-optimized">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="15" result="blur" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo" />
           </filter>
         </defs>
-        <g filter="url(#gooey-optimized)">
-          {/* Composite gooey trail */}
+        <g filter="url(#gooey-optimized)" className="pointer-events-none">
           {points.map((p, i) => (
-            <motion.circle
+            <motion.rect
               key={i}
-              cx={p.x}
-              cy={p.y}
-              r={isHovering ? 36 : 24}
-              className="fill-primary"
+              className="fill-primary pointer-events-none"
+              style={{
+                x: p.x,
+                y: p.y,
+              }}
+              animate={{
+                width: size.width,
+                height: size.height,
+                rx: size.rx,
+                translateX: -size.width / 2,
+                translateY: -size.height / 2
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 30,
+                mass: 0.5
+              }}
             />
           ))}
         </g>
       </svg>
     </div>
   )
-}
+})
 
 export default CustomCursor

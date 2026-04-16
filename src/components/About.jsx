@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Cpu, Layout, Database, Terminal, ArrowRight } from 'lucide-react'
 
-const About = () => {
+const About = React.memo(() => {
   const bentoItems = [
     {
       title: "Full-Stack Engineering",
@@ -102,6 +102,6 @@ const About = () => {
       </div>
     </div>
   )
-}
+})
 
 export default About
