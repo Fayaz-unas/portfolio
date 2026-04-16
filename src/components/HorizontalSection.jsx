@@ -62,7 +62,7 @@ const HorizontalSection = () => {
           style={{ x }} 
           className="flex h-full w-max items-stretch will-change-transform"
         >
-          <div className="flex-shrink-0 bg-surface flex items-center px-6 md:px-12 lg:px-24 border-l-[12px] border-black">
+          <div className="flex-shrink-0 bg-surface flex items-center px-4 md:px-8 lg:px-12 border-l-[12px] border-black">
             <Projects />
           </div>
         </motion.div>

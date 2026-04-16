@@ -8,7 +8,7 @@ const Projects = React.memo(() => {
     {
       title: "NAVIA",
       subtitle: "Assistive AI",
-      desc: "Real-time obstacle detection and spatial awareness system for visually impaired users using computer vision.",
+      desc: "Engineered an AI-driven spatial awareness system using Computer Vision to enhance accessibility for the visually impaired.",
       tech: ["Python", "OpenCV", "Edge Computing"],
       link: "https://github.com/Fayaz-unas/NAVIA",
       color: "bg-primary"
@@ -16,7 +16,7 @@ const Projects = React.memo(() => {
     {
       title: "SHINKEI",
       subtitle: "Logic Flow",
-      desc: "Interactive D3.js visualizer for program execution flow, designed to simplify complex debugging processes.",
+      desc: "Developed a high-fidelity program execution visualizer using D3.js to streamline complex debugging and system analysis.",
       tech: ["React", "D3.js", "TypeScript"],
       link: "https://github.com/Fayaz-unas/SHINKEI",
       color: "bg-secondary"
@@ -24,7 +24,7 @@ const Projects = React.memo(() => {
     {
       title: "HMF-MAC",
       subtitle: "ISA Research",
-      desc: "Advanced cache architecture simulation for RISC-V processors, focusing on adaptive memory management.",
+      desc: "Researched and implemented adaptive cache management strategies for RISC-V processors, optimizing memory throughput.",
       tech: ["C++", "gem5", "Computer Arch"],
       link: "https://github.com/Fayaz-unas/HMF-MAC",
       color: "bg-accent"
@@ -32,7 +32,7 @@ const Projects = React.memo(() => {
     {
       title: "Hostel MS",
       subtitle: "Scalable ERP",
-      desc: "Comprehensive management solution for institutional housing, handling high-concurrency record operations.",
+      desc: "Designed a high-concurrency ERP solution, optimizing database transactions for large-scale institutional operations.",
       tech: ["Node.js", "MySQL", "Architecture"],
       link: "https://github.com/Fayaz-unas",
       color: "bg-success"
@@ -41,7 +41,7 @@ const Projects = React.memo(() => {
 
   return (
     <div id="projects" className="flex flex-col lg:flex-row items-stretch lg:items-center gap-[6vh] lg:gap-32 h-full py-[8vh] lg:py-24 px-0">
-      <div className="w-full lg:w-[600px] px-[6vw] md:px-[8vw] lg:px-0 flex-shrink-0 flex flex-col justify-center relative z-10 text-left">
+      <div className="w-full lg:w-[600px] px-4 md:px-8 lg:px-0 flex-shrink-0 flex flex-col justify-center relative z-10 text-left">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -55,8 +55,8 @@ const Projects = React.memo(() => {
             <span className="text-black font-black tracking-[0.3em] text-[clamp(8px,1.5vw,12px)] uppercase underline decoration-[clamp(2px,0.4vw,4px)] underline-offset-[clamp(4px,0.8vw,8px)]">Artifacts.lib</span>
           </div>
           <h2 className="text-[clamp(2.5rem,10vw,6rem)] font-black font-heading mb-[4vh] tracking-tighter leading-[0.8] text-black">
-            ENGINEERED <br />
-            <span className="bg-primary border-[clamp(4px,0.8vw,8px)] border-black px-[4vw] lg:px-8 shadow-neo-xl inline-block rotate-1 mt-[1vh]">FOR USE.</span>
+            STRATEGIC <br />
+            <span className="bg-primary border-[clamp(4px,0.8vw,8px)] border-black px-[4vw] lg:px-8 shadow-neo-xl inline-block rotate-1 mt-[1vh]">ARTIFACTS.</span>
           </h2>
           <p className="text-[clamp(1.1rem,2.5vw,1.75rem)] text-black font-black font-body leading-tight mb-[6vh] max-w-lg border-l-[clamp(8px,1.5vw,12px)] border-black pl-[4vw] lg:pl-10">
             A selection of technical artifacts where performance and precision are non-negotiable.
@@ -77,7 +77,7 @@ const Projects = React.memo(() => {
         </motion.div>
       </div>
       
-      <div className="flex flex-col lg:flex-row gap-[4vh] lg:gap-16 items-center px-[6vw] md:px-[8vw] lg:px-0">
+      <div className="flex flex-col lg:flex-row gap-[4vh] lg:gap-16 items-center px-4 md:px-8 lg:px-0">
         {projects.map((project, idx) => (
           <motion.div
             key={idx}

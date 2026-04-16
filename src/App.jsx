@@ -24,9 +24,9 @@ function App() {
       </AnimatePresence>
       
       <main className="relative">
-        <Hero />
-        <div className="bg-white px-[6vw] md:px-[8vw] lg:px-24 border-t-[12px] border-black">
-          <div className="max-w-7xl mx-auto">
+        <Hero setNotification={setNotification} />
+        <div className="bg-white border-t-[12px] border-black">
+          <div className="w-full">
             <About />
           </div>
         </div>
@@ -36,52 +36,57 @@ function App() {
         </div>
       </main>
       
-      <footer className="bg-black text-white py-[10vh] md:py-24 px-[6vw] md:px-24 border-t-[12px] border-black overflow-hidden relative z-20">
-        <div className="absolute top-0 left-0 w-full opacity-5 pointer-events-none select-none">
-          <div className="text-[12rem] sm:text-[20rem] md:text-[30rem] font-black leading-none whitespace-nowrap -translate-y-1/2 tracking-tighter">
-            SYSTEM_ERROR_SYSTEM_LOAD_SYSTEM_ONLINE
-          </div>
-        </div>
+      <footer className="bg-black text-white py-12 lg:py-16 px-4 md:px-8 lg:px-12 border-t-[12px] border-black overflow-hidden relative z-20">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 w-[40vw] h-[40vw] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-[30vw] h-[30vw] bg-secondary/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
 
-        <div className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-32 relative z-10">
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-24">
-            <div className="space-y-8 md:space-y-10">
-              <div className="bg-primary text-black inline-block px-6 py-3 md:px-8 md:py-4 font-black text-2xl md:text-4xl border-4 border-white shadow-[8px_8px_0px_white] -rotate-1">
+        <div className="w-full flex flex-col gap-12 md:gap-16 relative z-10">
+          {/* Directory and Links */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
+            <div className="space-y-6">
+              <div className="bg-primary text-black inline-block px-6 py-2 font-black text-2xl border-4 border-white shadow-[6px_6px_0px_white] -rotate-1">
                 FAYAZ.UNAS
               </div>
-              <div className="space-y-4 md:space-y-6">
-                <p className="max-w-md text-white/60 font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-xs md:text-sm leading-relaxed border-l-4 md:border-l-8 border-primary pl-4 md:pl-8">
-                  Computer Science student at Model Engineering College. <br />
-                  Architecting high-precision digital environments where logic is the only constant.
-                </p>
+              <p className="text-white/40 font-black uppercase tracking-[0.2em] text-[10px] leading-relaxed max-w-xs">
+                Architecting high-precision digital environments where logic is the only constant. Focused on systems that scale.
+              </p>
+            </div>
+
+            <div className="space-y-6 md:space-y-8">
+              <h4 className="text-primary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-primary w-fit pb-2">DIRECTORY</h4>
+              <nav className="flex flex-col gap-4 font-black text-base md:text-lg uppercase tracking-widest">
+                <a href="#about" className="hover:text-primary transition-all hover:translate-x-3 inline-block">01_IDENTITY</a>
+                <a href="#projects" className="hover:text-primary transition-all hover:translate-x-3 inline-block">02_ARTIFACTS</a>
+                <a href="#contact" className="hover:text-primary transition-all hover:translate-x-3 inline-block">03_CONNECT</a>
+              </nav>
+            </div>
+
+            <div className="space-y-6 md:space-y-8">
+              <h4 className="text-secondary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-secondary w-fit pb-2">ENDPOINTS</h4>
+              <nav className="flex flex-col gap-4 font-black text-base md:text-lg uppercase tracking-widest text-white/60">
+                <a href="https://github.com/Fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">GITHUB.EXE</a>
+                <a href="https://linkedin.com/in/fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">LINKEDIN.COM</a>
+                <a href="mailto:fayazunas@gmail.com" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">MAIL_TERMINAL</a>
+              </nav>
+            </div>
+
+            <div className="space-y-6 md:space-y-8">
+              <h4 className="text-success font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-success w-fit pb-2">LOCATION</h4>
+              <div className="text-base md:text-lg font-black uppercase tracking-[0.2em] text-white/60 leading-tight">
+                KOCHI, KERALA<br/>
+                INDIA [UTC+5:30]<br/>
+              </div>
+              <div className="pt-4 flex gap-4">
+                <div className="w-10 h-10 border-2 border-white/20 flex items-center justify-center font-black text-xs hover:border-primary hover:text-primary transition-colors cursor-help">KCH</div>
+                <div className="w-10 h-10 border-2 border-white/20 flex items-center justify-center font-black text-xs hover:border-secondary hover:text-secondary transition-colors cursor-help">IND</div>
               </div>
             </div>
-            
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-10 md:gap-40 w-full lg:w-auto">
-              <div className="space-y-6 md:space-y-8">
-                <h4 className="text-primary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-primary w-fit pb-2">DIRECTORY</h4>
-                <div className="flex flex-col gap-4 md:gap-6 font-black text-base md:text-lg uppercase tracking-widest">
-                  <a href="#about" aria-label="Go to Identity section" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Identity</a>
-                  <a href="#projects" aria-label="Go to Artifacts section" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Artifacts</a>
-                  <a href="#contact" aria-label="Go to Connect section" className="hover:text-primary transition-all hover:translate-x-3 inline-block">Connect</a>
-                </div>
-              </div>
-              <div className="space-y-6 md:space-y-8">
-                <h4 className="text-secondary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-secondary w-fit pb-2">ENDPOINTS</h4>
-                <div className="flex flex-col gap-4 md:gap-6 font-black text-base md:text-lg uppercase tracking-widest">
-                  <a href="https://github.com/Fayaz-unas" target="_blank" rel="noreferrer" aria-label="Github Profile" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Github</a>
-                  <a href="https://linkedin.com/in/fayaz-unas" target="_blank" rel="noreferrer" aria-label="Linkedin Profile" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Linkedin</a>
-                  <a href="https://www.instagram.com/fayaz_unas" target="_blank" rel="noreferrer" aria-label="Instagram Profile" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Instagram</a>
-                  <a href="mailto:fayazunas@gmail.com" aria-label="Send Email" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Email</a>
-                </div>
-              </div>
-              <div className="space-y-6 md:space-y-8 col-span-2 sm:col-span-1">
-                <h4 className="text-success font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-success w-fit pb-2">LOCATION</h4>
-                <p className="text-base md:text-lg font-black uppercase tracking-[0.2em] text-white/60 leading-relaxed">
-                  KOCHI, KERALA<br/>INDIA<br/>
-                </p>
-              </div>
-            </div>
+          </div>
+
+          {/* Final Baseline */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 pt-10 border-t-2 border-white/5 opacity-30">
+            <span className="text-[9px] font-black uppercase tracking-[0.5em]">© 2026 FAYAZ_UNAS // ALL_RIGHTS_RESERVED</span>
           </div>
         </div>
       </footer>
