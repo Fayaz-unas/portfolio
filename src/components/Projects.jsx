@@ -41,7 +41,7 @@ const Projects = React.memo(() => {
 
   return (
     <div id="projects" className="flex flex-col lg:flex-row items-stretch lg:items-center gap-[6vh] lg:gap-32 h-full py-[8vh] lg:py-24 px-0">
-      <div className="w-full lg:w-[600px] px-[5vw] lg:px-0 flex-shrink-0 flex flex-col justify-center relative z-10 text-left">
+      <div className="w-full lg:w-[600px] px-[6vw] md:px-[8vw] lg:px-0 flex-shrink-0 flex flex-col justify-center relative z-10 text-left">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -67,7 +67,7 @@ const Projects = React.memo(() => {
               target="_blank" 
               rel="noreferrer" 
               aria-label="Explore all repositories on GitHub"
-              className="neo-button h-[clamp(50px,12vw,80px)] bg-black text-white text-[clamp(9px,1.8vw,14px)] px-[6vw] lg:px-12 shadow-neo-md hover:bg-primary hover:text-black hover:shadow-neo active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-4 group/repo"
+              className="neo-button h-[clamp(60px,12vw,80px)] bg-black text-white text-[clamp(10px,1.8vw,14px)] px-[8vw] lg:px-12 shadow-neo-md hover:bg-primary hover:text-black hover:shadow-neo active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-4 group/repo"
             >
               <span className="font-black uppercase tracking-widest">EXPLORE_REPOSITORIES</span>
               <Github className="w-[clamp(18px,4vw,24px)] h-[clamp(18px,4vw,24px)] text-white group-hover/repo:text-black transition-colors" strokeWidth={3} />
@@ -77,7 +77,7 @@ const Projects = React.memo(() => {
         </motion.div>
       </div>
       
-      <div className="flex flex-col lg:flex-row gap-[4vh] lg:gap-16 items-center px-[5vw] lg:px-0">
+      <div className="flex flex-col lg:flex-row gap-[4vh] lg:gap-16 items-center px-[6vw] md:px-[8vw] lg:px-0">
         {projects.map((project, idx) => (
           <motion.div
             key={idx}
@@ -85,10 +85,10 @@ const Projects = React.memo(() => {
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className={`w-full lg:w-[480px] min-h-[clamp(400px,60vh,580px)] ${project.color} border-[clamp(4px,0.8vw,6px)] border-black shadow-neo-md md:shadow-neo-lg p-[8vw] lg:p-12 flex flex-col justify-between group cursor-pointer relative overflow-hidden active:translate-x-2 active:translate-y-2 active:shadow-neo transition-all flex-shrink-0 text-left`}
+            className={`w-full lg:w-[480px] min-h-[clamp(350px,50vh,580px)] ${project.color} border-[clamp(4px,0.8vw,6px)] border-black shadow-neo-md md:shadow-neo-lg p-[8vw] lg:p-12 flex flex-col justify-between group cursor-pointer relative overflow-hidden active:translate-x-2 active:translate-y-2 active:shadow-neo transition-all flex-shrink-0 text-left`}
           >
             {/* Background Texture */}
-            <div className="absolute inset-0 brutal-stripes opacity-10 group-hover:opacity-20 transition-opacity" />
+            <div className="absolute inset-0 brutal-stripes opacity-10 md:group-hover:opacity-20 transition-opacity" />
 
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div>
@@ -96,33 +96,33 @@ const Projects = React.memo(() => {
                   <span className="bg-black text-white font-black text-[clamp(8px,1.5vw,10px)] tracking-widest uppercase px-[3vw] lg:px-5 py-[2vw] lg:py-3 block w-fit border-[clamp(2px,0.4vw,4px)] border-white shadow-neo-sm">
                     {project.subtitle}
                   </span>
-                  <div className="text-[clamp(2rem,6vw,3rem)] font-black text-black/10 font-mono tracking-tighter">#0{idx + 1}</div>
+                  <div className="text-[clamp(1.5rem,5vw,3rem)] font-black text-black/10 font-mono tracking-tighter">#0{idx + 1}</div>
                 </div>
-                <h3 className="text-[clamp(2.5rem,8vw,4.5rem)] font-black font-heading mb-[2vh] lg:mb-8 tracking-tighter leading-[0.85] text-black group-hover:underline decoration-[clamp(4px,0.8vw,8px)] underline-offset-8 transition-all">
+                <h3 className="text-[clamp(2.25rem,8vw,4.5rem)] font-black font-heading mb-[2vh] lg:mb-8 tracking-tighter leading-[0.85] text-black group-hover:underline decoration-[clamp(4px,0.8vw,8px)] underline-offset-8 transition-all">
                   {project.title}
                 </h3>
-                <p className="text-black font-black font-body text-[clamp(1rem,2vw,1.25rem)] leading-tight max-w-md bg-white/50 p-[5vw] lg:p-8 border-[clamp(4px,0.8vw,6px)] border-black shadow-neo-sm relative">
+                <p className="text-black font-black font-body text-[clamp(1rem,2.2vw,1.25rem)] leading-tight max-w-md bg-white/50 p-[6vw] lg:p-8 border-[clamp(4px,0.8vw,6px)] border-black shadow-neo-sm relative">
                   {project.desc}
                 </p>
               </div>
 
               <div className="mt-[4vh]">
-                <div className="flex flex-wrap gap-[2vw] lg:gap-4 mb-[4vh] lg:mb-10">
+                <div className="flex flex-wrap gap-[2.5vw] lg:gap-4 mb-[4vh] lg:mb-10">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="px-[3vw] lg:px-4 py-[1.5vw] lg:py-2 bg-black text-white text-[clamp(7px,1.5vw,10px)] font-black tracking-widest uppercase border-[clamp(2px,0.4vw,4px)] border-black shadow-neo-sm">
+                    <span key={i} className="px-[3vw] lg:px-4 py-[1.5vw] lg:py-2 bg-black text-white text-[clamp(8px,1.5vw,10px)] font-black tracking-widest uppercase border-[clamp(2px,0.4vw,4px)] border-black shadow-neo-sm">
                       {t}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex items-center">
-                  <Magnetic strength={0.1}>
+                  <Magnetic strength={0.1} className="w-full">
                     <a 
                       href={project.link} 
                       target="_blank" 
                       rel="noreferrer" 
                       aria-label={`View source code for ${project.title} on GitHub`}
-                      className="neo-button h-[clamp(50px,12vw,80px)] bg-black text-white text-[clamp(9px,1.8vw,13px)] px-[6vw] lg:px-16 shadow-neo-md hover:bg-white hover:text-black hover:shadow-neo active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-4 group/btn"
+                      className="neo-button h-[clamp(55px,12vw,80px)] bg-black text-white text-[clamp(10px,1.8vw,13px)] px-[8vw] lg:px-16 shadow-neo-md hover:bg-white hover:text-black hover:shadow-neo active:translate-x-1 active:translate-y-1 flex items-center justify-center gap-4 group/btn w-full"
                     >
                       <span className="font-black uppercase tracking-[0.2em]">VIEW_SOURCE_CODE</span>
                       <Github className="w-[clamp(20px,4.5vw,28px)] h-[clamp(20px,4.5vw,28px)] text-white group-hover/btn:text-black transition-colors" strokeWidth={3} />

@@ -25,7 +25,7 @@ function App() {
       
       <main className="relative">
         <Hero />
-        <div className="bg-white px-6 md:px-12 lg:px-24 border-t-[12px] border-black">
+        <div className="bg-white px-[6vw] md:px-[8vw] lg:px-24 border-t-[12px] border-black">
           <div className="max-w-7xl mx-auto">
             <About />
           </div>
@@ -36,16 +36,16 @@ function App() {
         </div>
       </main>
       
-      <footer className="bg-black text-white py-16 md:py-24 px-6 md:px-24 border-t-[12px] border-black overflow-hidden relative z-20">
+      <footer className="bg-black text-white py-[10vh] md:py-24 px-[6vw] md:px-24 border-t-[12px] border-black overflow-hidden relative z-20">
         <div className="absolute top-0 left-0 w-full opacity-5 pointer-events-none select-none">
-          <div className="text-[20rem] md:text-[30rem] font-black leading-none whitespace-nowrap -translate-y-1/2 tracking-tighter">
+          <div className="text-[12rem] sm:text-[20rem] md:text-[30rem] font-black leading-none whitespace-nowrap -translate-y-1/2 tracking-tighter">
             SYSTEM_ERROR_SYSTEM_LOAD_SYSTEM_ONLINE
           </div>
         </div>
 
         <div className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-32 relative z-10">
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-24">
-            <div className="space-y-6 md:space-y-10">
+            <div className="space-y-8 md:space-y-10">
               <div className="bg-primary text-black inline-block px-6 py-3 md:px-8 md:py-4 font-black text-2xl md:text-4xl border-4 border-white shadow-[8px_8px_0px_white] -rotate-1">
                 FAYAZ.UNAS
               </div>
@@ -75,7 +75,7 @@ function App() {
                   <a href="mailto:fayazunas@gmail.com" aria-label="Send Email" className="hover:text-secondary transition-all hover:translate-x-3 inline-block">Email</a>
                 </div>
               </div>
-              <div className="space-y-6 md:space-y-8 hidden sm:block">
+              <div className="space-y-6 md:space-y-8 col-span-2 sm:col-span-1">
                 <h4 className="text-success font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-success w-fit pb-2">LOCATION</h4>
                 <p className="text-base md:text-lg font-black uppercase tracking-[0.2em] text-white/60 leading-relaxed">
                   KOCHI, KERALA<br/>INDIA<br/>

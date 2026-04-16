@@ -47,7 +47,7 @@ const HorizontalSection = () => {
   if (isMobile) {
     return (
       <div className="bg-white">
-        <div className="px-6 py-16 border-t-[12px] border-black bg-surface overflow-hidden">
+        <div className="border-t-[12px] border-black bg-surface overflow-hidden">
           <Projects />
         </div>
       </div>

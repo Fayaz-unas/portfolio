@@ -4,6 +4,7 @@ import { motion, useSpring, useMotionValue } from 'framer-motion'
 const CustomCursor = React.memo(() => {
   const [isHovering, setIsHovering] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   
   const headX = useMotionValue(0)
   const headY = useMotionValue(0)
@@ -11,9 +12,21 @@ const CustomCursor = React.memo(() => {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     setReduceMotion(mediaQuery.matches)
+    
+    // Check if it's a touch device
+    const touchQuery = window.matchMedia('(pointer: coarse)')
+    setIsTouchDevice(touchQuery.matches)
+
     const handler = (e) => setReduceMotion(e.matches)
+    const touchHandler = (e) => setIsTouchDevice(e.matches)
+    
     mediaQuery.addEventListener('change', handler)
-    return () => mediaQuery.removeEventListener('change', handler)
+    touchQuery.addEventListener('change', touchHandler)
+    
+    return () => {
+      mediaQuery.removeEventListener('change', handler)
+      touchQuery.removeEventListener('change', touchHandler)
+    }
   }, [])
 
   // Optimized spring chain for better connectivity
@@ -74,16 +87,16 @@ const CustomCursor = React.memo(() => {
   }, [headX, headY])
 
   useEffect(() => {
-    if (reduceMotion) return
+    if (reduceMotion || isTouchDevice) return
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('mouseover', handleMouseOver)
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseover', handleMouseOver)
     }
-  }, [handleMouseMove, handleMouseOver, reduceMotion])
+  }, [handleMouseMove, handleMouseOver, reduceMotion, isTouchDevice])
 
-  if (reduceMotion) return null
+  if (reduceMotion || isTouchDevice) return null
 
   const size = isHovering ? {
     width: hoveredRect.width + 25,
