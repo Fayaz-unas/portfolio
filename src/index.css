@@ -94,7 +94,7 @@ body {
 }
 
 .marquee-content {
-  @apply inline-block animate-marquee font-black uppercase tracking-[0.5em] text-4xl;
+  @apply inline-block animate-marquee font-black uppercase tracking-[0.4em] text-4xl;
 }
 
 /* Custom Utilities */
@@ -106,4 +106,16 @@ body {
 .neo-blur {
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.1);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.neo-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.neo-glow:hover {
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,1), 0 0 20px rgba(255, 230, 0, 0.15);
 }

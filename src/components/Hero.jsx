@@ -5,7 +5,7 @@ import Magnetic from './Magnetic'
 
 const Hero = React.memo(({ setNotification }) => {
   // CONFIGURATION: Add your Google Drive resume link here as a fallback
-  const RESUME_DRIVE_URL = "" 
+  const RESUME_DRIVE_URL = ""
 
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 500], [1, 0])
@@ -22,7 +22,7 @@ const Hero = React.memo(({ setNotification }) => {
 
   const handleResumeClick = (e) => {
     e.preventDefault()
-    
+
     // Check for a valid URL in the configuration constant
     if (RESUME_DRIVE_URL && RESUME_DRIVE_URL.startsWith('http')) {
       window.open(RESUME_DRIVE_URL, '_blank')
@@ -59,7 +59,7 @@ const Hero = React.memo(({ setNotification }) => {
     <section className="relative min-h-[100svh] flex flex-col px-4 md:px-8 lg:px-12 overflow-x-clip bg-white brutal-grid pt-0 pb-0">
 
       {/* Main Content Integration */}
-      <motion.div 
+      <motion.div
         style={{ scale, opacity, rotate: rotateHero }}
         className="w-full relative z-10 flex-grow flex items-center justify-center py-[4vh] lg:py-[2vh]"
       >
@@ -74,45 +74,57 @@ const Hero = React.memo(({ setNotification }) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="mb-2 lg:mb-4"
+                className="mb-2 lg:mb-3"
               >
                 <h2 className="text-[clamp(3rem,8vw,6rem)] font-black text-black tracking-[calc(-0.05em)] uppercase leading-none block border-b-[clamp(6px,1vw,12px)] border-primary w-fit pb-1">
                   FAYAZ UNAS
                 </h2>
               </motion.div>
 
+              {/* Role Tag */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.15 }}
+                className="mb-3 lg:mb-5"
+              >
+                <span className="font-mono text-[clamp(0.7rem,1.4vw,0.9rem)] font-bold text-black/40 tracking-[0.15em] uppercase">Computer Science Engineer · MEC Kochi</span>
+              </motion.div>
+
               <h1 className="text-[clamp(2rem,7vw,5.5rem)] font-black font-heading mb-[2vh] lg:mb-[3vh] tracking-tighter leading-[0.85] text-black/90">
-                <motion.span 
+                <motion.span
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                   className="block"
                 >
-                  ARCHITECTING
+                  ENGINEERING
                 </motion.span>
-                <motion.span 
+                <motion.span
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4 }}
                   className="inline-block bg-primary border-[clamp(4px,0.5vw,8px)] border-black px-[3vw] md:px-[2vw] shadow-neo-md md:shadow-neo-lg -rotate-1 mt-[0.5vh]"
                 >
-                  ROBUST SYSTEMS.
+                  DIGITAL PRECISION.
                 </motion.span>
               </h1>
 
               <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-start md:items-center">
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6 }}
-                  className="relative max-w-[min(100%,550px)]"
+                  className="relative max-w-[min(100%,580px)]"
                 >
-                  <p className="text-[clamp(1rem,1.8vw,1.25rem)] text-black font-black font-body leading-[1.1] bg-white border-[clamp(3px,0.4vw,6px)] border-black p-[4vw] md:p-[1.5vw] shadow-neo-sm md:shadow-neo-md relative z-20">
-                    Software Engineer specializing in 
-                    <span className="bg-secondary px-[0.5ch] mx-[0.2ch]">Computer Architecture</span> and 
-                    <span className="underline decoration-[clamp(3px,0.4vw,6px)] underline-offset-[0.2em] px-[0.2ch]">scalable</span> full-stack systems.
-                  </p>
-                  <div className="absolute -inset-[clamp(4px,0.6vw,8px)] bg-black -z-10 translate-x-[1.5vw] translate-y-[1.5vw] md:translate-x-[0.8vw] md:translate-y-[0.8vw]" />
+                  <div className="flex bg-white border-[clamp(3px,0.4vw,6px)] border-black shadow-neo-sm md:shadow-neo-md relative z-20 overflow-hidden">
+                    <div className="w-[clamp(5px,0.6vw,8px)] bg-secondary flex-shrink-0" />
+                    <p className="text-[clamp(1rem,1.8vw,1.25rem)] text-black font-black font-body leading-[1.2] p-[4vw] md:p-[1.5vw]">
+                      Computer Science Engineer bridging
+                      <span className="bg-secondary/20 px-[0.5ch] mx-[0.2ch]">hardware precision</span> with full-stack mastery — from RISC-V pipelines to
+                      <span className="underline decoration-[clamp(3px,0.4vw,6px)] decoration-primary underline-offset-[0.2em] px-[0.2ch]">production-grade</span> applications.
+                    </p>
+                  </div>
                 </motion.div>
 
                 <motion.div
@@ -121,7 +133,7 @@ const Hero = React.memo(({ setNotification }) => {
                   transition={{ delay: 0.7 }}
                 >
                   <Magnetic strength={0.2}>
-                    <button 
+                    <button
                       onClick={handleResumeClick}
                       className="neo-button bg-black text-white hover:bg-primary hover:text-black transition-all inline-flex items-center gap-4 group py-3 px-6 lg:py-4 lg:px-8 shadow-neo-md"
                     >
@@ -143,10 +155,10 @@ const Hero = React.memo(({ setNotification }) => {
                 { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Instagram Profile" },
               ].map((social, i) => (
                 <Magnetic key={i} strength={0.3}>
-                  <a 
-                    href={social.href} 
-                    target="_blank" 
-                    rel="noreferrer" 
+                  <a
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
                     aria-label={social.label}
                     className={`${social.color} ${social.hover} border-[clamp(2px,0.3vw,4px)] border-black p-[4vw] lg:p-[1vw] shadow-neo-sm hover:translate-y-[-0.3vh] hover:shadow-neo active:translate-y-0 transition-all flex-1 flex items-center justify-center group/social`}
                   >
@@ -157,7 +169,7 @@ const Hero = React.memo(({ setNotification }) => {
             </div>
 
             {[
-              { icon: <Cpu />, label: "Technical Core", value: "Systems Architecture", color: "bg-primary" },
+              { icon: <Cpu />, label: "Technical Core", value: "Systems & Architecture", color: "bg-primary" },
               { icon: <Code2 />, label: "Principal Stack", value: "Full-Stack Engineering", color: "bg-secondary" }
             ].map((stat, i) => (
               <motion.div
@@ -183,16 +195,16 @@ const Hero = React.memo(({ setNotification }) => {
       </motion.div>
 
       {/* Decorative Floating Elements */}
-      <motion.div 
+      <motion.div
         style={{ opacity, x: springX, y: springY }}
-        className="absolute top-[5%] left-[5%] w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] bg-primary/10 border-[clamp(1px,0.2vw,3px)] border-black/5 -z-10 -rotate-12 hidden lg:block" 
+        className="absolute top-[5%] left-[5%] w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] bg-primary/10 border-[clamp(1px,0.2vw,3px)] border-black/5 -z-10 -rotate-12 hidden lg:block"
       />
-      
+
       {/* Background Marquee Integration */}
       <div className="mt-auto w-full relative z-30 overflow-hidden">
         <div className="marquee-container rotate-[-1deg] border-y-[1px] border-black scale-105 origin-center">
           <div className="marquee-content py-1 lg:py-1.5 text-[clamp(0.6rem,1.2vw,0.85rem)] opacity-80">
-            SCALABLE ARCHITECTURE • PERFORMANCE OPTIMIZATION • SYSTEM INTEGRITY • PRECISION ENGINEERING • FULL-STACK EXCELLENCE • SCALABLE ARCHITECTURE • PERFORMANCE OPTIMIZATION • SYSTEM INTEGRITY • PRECISION ENGINEERING • FULL-STACK EXCELLENCE •
+            SYSTEMS ARCHITECTURE • RISC-V ENGINEERING • FULL-STACK DEVELOPMENT • PERFORMANCE OPTIMIZATION • DISTRIBUTED SYSTEMS • HARDWARE CO-DESIGN • CACHE HIERARCHIES • LOW-LATENCY COMPUTING • SYSTEMS ARCHITECTURE • RISC-V ENGINEERING • FULL-STACK DEVELOPMENT • PERFORMANCE OPTIMIZATION •
           </div>
         </div>
       </div>

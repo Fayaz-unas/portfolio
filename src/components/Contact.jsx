@@ -10,7 +10,7 @@ const Contact = React.memo(({ setNotification }) => {
   return (
     <section id="contact" className="min-h-[100svh] flex items-center justify-center px-4 md:px-8 lg:px-12 py-[6vh] lg:py-[10vh] relative overflow-x-clip bg-white brutal-stripes">
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-[6vh] lg:gap-20 items-center relative z-10">
-        
+
         {/* Left Content */}
         <div className="lg:col-span-5">
           <motion.div
@@ -22,20 +22,20 @@ const Contact = React.memo(({ setNotification }) => {
             <div className="inline-flex items-center gap-4 bg-accent text-white px-6 py-2 border-[3px] border-black shadow-neo-sm mb-6 rotate-[-1deg]">
               <span className="text-[clamp(9px,1.8vw,12px)] font-black uppercase tracking-[0.4em]">COMM_CHANNEL.V3</span>
             </div>
-            
+
             <h2 className="text-[clamp(2.5rem,8vw,5.5rem)] font-black font-heading mb-6 tracking-tighter leading-[0.8] text-black">
-              STRATEGIC <br />
-              <span className="bg-secondary border-[clamp(4px,0.7vw,8px)] border-black px-6 shadow-neo-md inline-block rotate-2 mt-2">INQUIRY.</span>
+              LET'S <br />
+              <span className="bg-secondary border-[clamp(4px,0.7vw,8px)] border-black px-6 shadow-neo-md inline-block rotate-2 mt-2">BUILD.</span>
             </h2>
-            
-            <p className="text-[clamp(1.1rem,2.5vw,1.5rem)] text-black font-black font-body leading-tight mb-8 max-w-sm border-l-[8px] border-black pl-8">
-              Open to collaborations on complex engineering challenges and system architectures.
+
+            <p className="text-[clamp(1.1rem,2.5vw,1.5rem)] text-black font-black font-body leading-[1.3] mb-4 max-w-sm border-l-[8px] border-black pl-8">
+              Have a complex engineering challenge or an ambitious project? I'm always open to conversations that push boundaries.
             </p>
 
             <div className="space-y-6 lg:space-y-8">
               <Magnetic strength={0.1} className="relative z-20 w-full">
-                <a 
-                  href="mailto:fayazunas96@gmail.com" 
+                <a
+                  href="mailto:fayazunas96@gmail.com"
                   aria-label="Send email to Fayaz Unas"
                   className="flex items-center gap-6 group bg-primary border-4 md:border-[6px] border-black p-6 shadow-neo hover:shadow-neo-hover active:translate-x-1 active:translate-y-1 transition-all w-full"
                 >
@@ -94,55 +94,55 @@ const Contact = React.memo(({ setNotification }) => {
 
               <div className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-3 text-left">
-                  <label htmlFor="name" className="text-[10px] font-black text-black uppercase tracking-[0.3em] ml-2">Professional_Alias</label>
-                  <input 
+                  <label htmlFor="name" className="text-[10px] font-black text-black uppercase tracking-[0.3em] ml-2">Your_Name</label>
+                  <input
                     id="name"
-                    type="text" 
+                    type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="neo-input w-full py-4 px-6 text-base border-[3px] md:border-4" 
-                    placeholder="ENTER NAME" 
+                    className="neo-input w-full py-4 px-6 text-base border-[3px] md:border-4"
+                    placeholder="ENTER NAME"
                   />
                 </div>
                 <div className="space-y-3 text-left">
-                  <label htmlFor="email" className="text-[10px] font-black text-black uppercase tracking-[0.3em] ml-2">Contact_Endpoint</label>
-                  <input 
+                  <label htmlFor="email" className="text-[10px] font-black text-black uppercase tracking-[0.3em] ml-2">Email_Address</label>
+                  <input
                     id="email"
-                    type="email" 
+                    type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="neo-input w-full py-4 px-6 text-base border-[3px] md:border-4" 
-                    placeholder="EMAIL@DOMAIN.COM" 
+                    className="neo-input w-full py-4 px-6 text-base border-[3px] md:border-4"
+                    placeholder="EMAIL@DOMAIN.COM"
                   />
                 </div>
               </div>
-              
+
               <div className="space-y-3 text-left">
                 <label htmlFor="message" className="text-[10px] font-black text-black uppercase tracking-[0.3em] ml-2">Project_Brief</label>
-                <textarea 
+                <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  rows="4" 
-                  className="neo-input w-full resize-none py-4 px-6 text-base border-[3px] md:border-4" 
+                  rows="5"
+                  className="neo-input w-full resize-none py-4 px-6 text-base border-[3px] md:border-4"
                   placeholder="TRANSMIT INQUIRY DETAILS..."
                 />
               </div>
-              
+
               <Magnetic strength={0.1}>
-                <button 
+                <button
                   type="submit"
                   disabled={isSubmitting}
                   className="neo-button w-full h-[clamp(65px,12vw,90px)] bg-black text-white text-lg lg:text-xl group/submit overflow-hidden border-[clamp(4px,0.5vw,8px)] shadow-neo-lg active:shadow-neo disabled:opacity-50"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-6 uppercase font-black tracking-[0.4em]">
-                    {isSubmitting ? 'TRANSMITTING...' : 'TRANSMIT_INQUIRY'} <Send className="w-6 h-6 transition-transform group-hover/submit:translate-x-3 group-hover/submit:-translate-y-3" strokeWidth={4} />
+                    {isSubmitting ? 'TRANSMITTING...' : 'SEND_MESSAGE'} <Send className="w-6 h-6 transition-transform group-hover/submit:translate-x-3 group-hover/submit:-translate-y-3" strokeWidth={4} />
                   </span>
                 </button>
               </Magnetic>
