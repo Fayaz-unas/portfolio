@@ -35,7 +35,7 @@ const Contact = React.memo(({ setNotification }) => {
             <div className="space-y-6 lg:space-y-8">
               <Magnetic strength={0.1} className="relative z-20 w-full">
                 <a 
-                  href="mailto:fayazunas@gmail.com" 
+                  href="mailto:fayazunas96@gmail.com" 
                   aria-label="Send email to Fayaz Unas"
                   className="flex items-center gap-6 group bg-primary border-4 md:border-[6px] border-black p-6 shadow-neo hover:shadow-neo-hover active:translate-x-1 active:translate-y-1 transition-all w-full"
                 >
@@ -44,7 +44,7 @@ const Contact = React.memo(({ setNotification }) => {
                   </div>
                   <div className="text-left">
                     <p className="text-[10px] font-black text-black/50 uppercase tracking-[0.3em] mb-1">Professional_Endpoint</p>
-                    <p className="text-[clamp(1rem,3vw,1.5rem)] font-black font-heading text-black tracking-tighter break-all">fayazunas@gmail.com</p>
+                    <p className="text-[clamp(1rem,3vw,1.5rem)] font-black font-heading text-black tracking-tighter break-all">fayazunas96@gmail.com</p>
                   </div>
                 </a>
               </Magnetic>

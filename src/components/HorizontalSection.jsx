@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react'
+import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react'
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion'
 import Projects from './Projects'
 
@@ -9,27 +9,26 @@ const HorizontalSection = () => {
   const [screenWidth, setScreenWidth] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
-  useEffect(() => {
-    const calculateWidths = () => {
-      if (scrollRef.current) {
-        setScrollWidth(scrollRef.current.scrollWidth)
-      }
-      setScreenWidth(window.innerWidth)
-      setIsMobile(window.innerWidth < 1024)
+  const calculateWidths = useCallback(() => {
+    if (scrollRef.current) {
+      setScrollWidth(scrollRef.current.scrollWidth)
     }
+    setScreenWidth(window.innerWidth)
+    setIsMobile(window.innerWidth < 1024)
+  }, [])
 
+  useEffect(() => {
     calculateWidths()
     
-    // Use ResizeObserver for more efficient resize handling than window listener
-    const observer = new ResizeObserver(calculateWidths)
-    if (targetRef.current) observer.observe(targetRef.current)
+    const observer = new ResizeObserver(() => {
+      window.requestAnimationFrame(calculateWidths)
+    })
     
-    window.addEventListener('resize', calculateWidths)
-    return () => {
-      window.removeEventListener('resize', calculateWidths)
-      observer.disconnect()
-    }
-  }, [])
+    if (targetRef.current) observer.observe(targetRef.current)
+    if (scrollRef.current) observer.observe(scrollRef.current)
+    
+    return () => observer.disconnect()
+  }, [calculateWidths])
 
   const { scrollYProgress } = useScroll({
     target: targetRef,

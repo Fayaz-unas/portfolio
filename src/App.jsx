@@ -1,11 +1,23 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import Hero from './components/Hero'
-import About from './components/About'
-import HorizontalSection from './components/HorizontalSection'
-import Contact from './components/Contact'
 import CustomCursor from './components/CustomCursor'
 import Notification from './components/Notification'
+
+// Lazy load components that are not immediately visible or are heavy
+const About = lazy(() => import('./components/About'))
+const HorizontalSection = lazy(() => import('./components/HorizontalSection'))
+const Contact = lazy(() => import('./components/Contact'))
+
+const LoadingFallback = () => (
+  <div className="w-full h-24 flex items-center justify-center bg-white border-t-[12px] border-black">
+    <div className="flex gap-2">
+      <div className="w-4 h-4 bg-primary animate-bounce" />
+      <div className="w-4 h-4 bg-secondary animate-bounce [animation-delay:-.3s]" />
+      <div className="w-4 h-4 bg-accent animate-bounce [animation-delay:-.5s]" />
+    </div>
+  </div>
+)
 
 function App() {
   const [notification, setNotification] = useState(null)
@@ -25,15 +37,18 @@ function App() {
       
       <main className="relative">
         <Hero setNotification={setNotification} />
-        <div className="bg-white border-t-[12px] border-black">
-          <div className="w-full">
-            <About />
+        
+        <Suspense fallback={<LoadingFallback />}>
+          <div className="bg-white border-t-[12px] border-black">
+            <div className="w-full">
+              <About />
+            </div>
           </div>
-        </div>
-        <HorizontalSection />
-        <div className="relative z-10 bg-white border-t-[12px] border-black">
-          <Contact setNotification={setNotification} />
-        </div>
+          <HorizontalSection />
+          <div className="relative z-10 bg-white border-t-[12px] border-black">
+            <Contact setNotification={setNotification} />
+          </div>
+        </Suspense>
       </main>
       
       <footer className="bg-black text-white py-12 lg:py-16 px-4 md:px-8 lg:px-12 border-t-[12px] border-black overflow-hidden relative z-20">

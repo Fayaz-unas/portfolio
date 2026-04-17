@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useRef } from 'react'
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
 import { FileText, Cpu, Code2, Github, Linkedin, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
@@ -18,6 +18,8 @@ const Hero = React.memo(({ setNotification }) => {
   const springX = useSpring(mouseX, { damping: 50, stiffness: 400 })
   const springY = useSpring(mouseY, { damping: 50, stiffness: 400 })
 
+  const rafId = useRef(null)
+
   const handleResumeClick = (e) => {
     e.preventDefault()
     
@@ -33,18 +35,25 @@ const Hero = React.memo(({ setNotification }) => {
     }
   }
 
-  useEffect(() => {
-    const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
+    if (rafId.current) return
+
+    rafId.current = window.requestAnimationFrame(() => {
       const { clientX, clientY } = e
       const { innerWidth, innerHeight } = window
       mouseX.set((clientX / innerWidth - 0.5) * 50)
       mouseY.set((clientY / innerHeight - 0.5) * 50)
-    }
-    window.addEventListener('mousemove', handleMouseMove)
+      rafId.current = null
+    })
+  }, [mouseX, mouseY])
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
+      if (rafId.current) window.cancelAnimationFrame(rafId.current)
     }
-  }, [mouseX, mouseY])
+  }, [handleMouseMove])
 
   return (
     <section className="relative min-h-[100svh] flex flex-col px-4 md:px-8 lg:px-12 overflow-x-clip bg-white brutal-grid pt-0 pb-0">
