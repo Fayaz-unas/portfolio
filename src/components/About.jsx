@@ -2,42 +2,42 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Cpu, Layout, Database, Terminal, ArrowRight } from 'lucide-react'
 
-const About = React.memo(() => {
-  const bentoItems = [
-    {
-      title: "Full-Stack Systems",
-      num: "01",
-      desc: "Shipping production-grade applications with React, Node.js, and cloud-native infrastructure. Obsessed with performance budgets and clean architecture.",
-      icon: <Layout className="text-black" />,
-      color: "bg-primary",
-      className: "lg:col-span-4"
-    },
-    {
-      title: "Hardware-Software Co-Design",
-      num: "02",
-      desc: "Designing custom RISC-V cache hierarchies and low-level firmware. Bridging the gap between instruction sets and software abstractions.",
-      icon: <Cpu className="text-black" />,
-      color: "bg-secondary",
-      className: "lg:col-span-8"
-    },
-    {
-      title: "Performance Engineering",
-      num: "03",
-      desc: "Writing mission-critical C/C++ where every cycle counts. Profiling, benchmarking, and eliminating bottlenecks at the system level.",
-      icon: <Terminal className="text-black" />,
-      color: "bg-accent",
-      className: "lg:col-span-7"
-    },
-    {
-      title: "Distributed Systems",
-      num: "04",
-      desc: "Building high-throughput microservice architectures with fault tolerance, eventual consistency, and sub-millisecond p99 latencies.",
-      icon: <Database className="text-black" />,
-      color: "bg-success",
-      className: "lg:col-span-5"
-    }
-  ]
+const BENTO_ITEMS = [
+  {
+    title: "Full-Stack Systems",
+    num: "01",
+    desc: "Shipping production-grade applications with React, Node.js, and cloud-native infrastructure. Obsessed with performance budgets and clean architecture.",
+    icon: <Layout className="text-black" />,
+    color: "bg-primary",
+    className: "lg:col-span-4"
+  },
+  {
+    title: "Hardware-Software Co-Design",
+    num: "02",
+    desc: "Designing custom RISC-V cache hierarchies and low-level firmware. Bridging the gap between instruction sets and software abstractions.",
+    icon: <Cpu className="text-black" />,
+    color: "bg-secondary",
+    className: "lg:col-span-8"
+  },
+  {
+    title: "Performance Engineering",
+    num: "03",
+    desc: "Writing mission-critical C/C++ where every cycle counts. Profiling, benchmarking, and eliminating bottlenecks at the system level.",
+    icon: <Terminal className="text-black" />,
+    color: "bg-accent",
+    className: "lg:col-span-7"
+  },
+  {
+    title: "Distributed Systems",
+    num: "04",
+    desc: "Building high-throughput microservice architectures with fault tolerance, eventual consistency, and sub-millisecond p99 latencies.",
+    icon: <Database className="text-black" />,
+    color: "bg-success",
+    className: "lg:col-span-5"
+  }
+]
 
+const About = React.memo(() => {
   return (
     <div id="about" className="w-full py-[6vh] md:py-[8vh] px-4 md:px-8 lg:px-12">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center mb-10 lg:mb-12">
@@ -78,7 +78,7 @@ const About = React.memo(() => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 md:gap-8 text-left">
-        {bentoItems.map((item, i) => (
+        {BENTO_ITEMS.map((item, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 30 }}
@@ -86,7 +86,7 @@ const About = React.memo(() => {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ scale: 1.01, rotate: i % 2 === 0 ? 0.3 : -0.3 }}
-            className={`${item.className} ${item.color} border-4 md:border-[6px] border-black shadow-neo p-6 md:p-8 flex flex-col justify-between group cursor-pointer active:shadow-none transition-all relative overflow-hidden min-h-[clamp(200px,30vh,320px)]`}
+            className={`${item.className} ${item.color} border-4 md:border-[6px] border-black shadow-neo p-6 md:p-8 flex flex-col justify-between group cursor-pointer active:shadow-none transition-all relative overflow-hidden min-h-[clamp(200px,30vh,320px)] will-change-transform`}
           >
             <div className="absolute top-0 right-0 p-4 md:p-6 opacity-0 md:group-hover:opacity-100 transition-all group-hover:translate-x-[-10px] group-hover:translate-y-[10px]">
               <ArrowRight size={24} className="-rotate-45 md:w-8 md:h-8" />
@@ -109,5 +109,7 @@ const About = React.memo(() => {
     </div>
   )
 })
+
+About.displayName = 'About'
 
 export default About

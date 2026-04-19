@@ -1,6 +1,16 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { motion, useSpring, useMotionValue, useMotionTemplate } from 'framer-motion'
 
+// Balanced spring chain: 6 points is optimal for performance vs smoothness
+const SPRING_CONFIGS = [
+  { damping: 50, stiffness: 1000, mass: 0.1 },
+  { damping: 40, stiffness: 800, mass: 0.15 },
+  { damping: 35, stiffness: 600, mass: 0.2 },
+  { damping: 30, stiffness: 450, mass: 0.25 },
+  { damping: 25, stiffness: 300, mass: 0.3 },
+  { damping: 20, stiffness: 150, mass: 0.35 }
+]
+
 const CustomCursor = React.memo(() => {
   const [isHovering, setIsHovering] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -26,28 +36,18 @@ const CustomCursor = React.memo(() => {
     }
   }, [])
 
-  // Balanced spring chain: 6 points is optimal for performance vs smoothness
-  const springConfigs = [
-    { damping: 50, stiffness: 1000, mass: 0.1 },
-    { damping: 40, stiffness: 800, mass: 0.15 },
-    { damping: 35, stiffness: 600, mass: 0.2 },
-    { damping: 30, stiffness: 450, mass: 0.25 },
-    { damping: 25, stiffness: 300, mass: 0.3 },
-    { damping: 20, stiffness: 150, mass: 0.35 }
-  ]
-
-  const s1x = useSpring(headX, springConfigs[0])
-  const s1y = useSpring(headY, springConfigs[0])
-  const s2x = useSpring(headX, springConfigs[1])
-  const s2y = useSpring(headY, springConfigs[1])
-  const s3x = useSpring(headX, springConfigs[2])
-  const s3y = useSpring(headY, springConfigs[2])
-  const s4x = useSpring(headX, springConfigs[3])
-  const s4y = useSpring(headY, springConfigs[3])
-  const s5x = useSpring(headX, springConfigs[4])
-  const s5y = useSpring(headY, springConfigs[4])
-  const s6x = useSpring(headX, springConfigs[5])
-  const s6y = useSpring(headY, springConfigs[5])
+  const s1x = useSpring(headX, SPRING_CONFIGS[0])
+  const s1y = useSpring(headY, SPRING_CONFIGS[0])
+  const s2x = useSpring(headX, SPRING_CONFIGS[1])
+  const s2y = useSpring(headY, SPRING_CONFIGS[1])
+  const s3x = useSpring(headX, SPRING_CONFIGS[2])
+  const s3y = useSpring(headY, SPRING_CONFIGS[2])
+  const s4x = useSpring(headX, SPRING_CONFIGS[3])
+  const s4y = useSpring(headY, SPRING_CONFIGS[3])
+  const s5x = useSpring(headX, SPRING_CONFIGS[4])
+  const s5y = useSpring(headY, SPRING_CONFIGS[4])
+  const s6x = useSpring(headX, SPRING_CONFIGS[5])
+  const s6y = useSpring(headY, SPRING_CONFIGS[5])
 
   const points = useMemo(() => [
     { x: s1x, y: s1y }, { x: s2x, y: s2y },
@@ -111,7 +111,7 @@ const CustomCursor = React.memo(() => {
   }
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999] mix-blend-difference">
+    <div className="fixed inset-0 pointer-events-none z-[100] mix-blend-difference">
       <svg className="w-full h-full overflow-visible" shapeRendering="optimizeSpeed">
         <defs>
           <filter id="goo" colorInterpolationFilters="sRGB">
@@ -124,28 +124,43 @@ const CustomCursor = React.memo(() => {
           <motion.path
             d={trailPath}
             className="stroke-primary fill-none"
+            initial={{ strokeWidth: 24 }}
             animate={{ strokeWidth: isHovering ? 0 : 24 }}
             transition={{ duration: 0.2 }}
           />
-          {points.map((p, i) => (
-            <motion.rect
-              key={i}
-              className="fill-primary"
-              style={{ x: p.x, y: p.y }}
-              animate={{
-                width: size.w * (1 - i * 0.1),
-                height: size.h * (1 - i * 0.1),
-                rx: size.r,
-                translateX: -(size.w * (1 - i * 0.1)) / 2,
-                translateY: -(size.h * (1 - i * 0.1)) / 2
-              }}
-              transition={{ type: "spring", stiffness: 250, damping: 25, mass: 0.5 }}
-            />
-          ))}
+          {points.map((p, i) => {
+            const initialW = 32 * (1 - i * 0.1);
+            const initialH = 32 * (1 - i * 0.1);
+            const initialR = 16;
+            return (
+              <motion.rect
+                key={i}
+                className="fill-primary"
+                style={{ x: p.x, y: p.y }}
+                initial={{
+                  width: initialW,
+                  height: initialH,
+                  rx: initialR,
+                  translateX: -initialW / 2,
+                  translateY: -initialH / 2
+                }}
+                animate={{
+                  width: size.w * (1 - i * 0.1),
+                  height: size.h * (1 - i * 0.1),
+                  rx: size.r,
+                  translateX: -(size.w * (1 - i * 0.1)) / 2,
+                  translateY: -(size.h * (1 - i * 0.1)) / 2
+                }}
+                transition={{ type: "spring", stiffness: 250, damping: 25, mass: 0.5 }}
+              />
+            )
+          })}
         </g>
       </svg>
     </div>
   )
 })
+
+CustomCursor.displayName = 'CustomCursor'
 
 export default CustomCursor

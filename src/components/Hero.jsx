@@ -3,10 +3,27 @@ import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'fram
 import { FileText, Cpu, Code2, Github, Linkedin, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
 
-const Hero = React.memo(({ setNotification }) => {
-  // CONFIGURATION: Add your Google Drive resume link here as a fallback
-  const RESUME_DRIVE_URL = ""
+const RESUME_DRIVE_URL = import.meta.env.VITE_RESUME_DRIVE_URL || ""
 
+const XIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+)
+
+const SOCIAL_LINKS = [
+  { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black", label: "Visit Github Profile" },
+  { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white", label: "Visit Linkedin Profile" },
+  { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Visit Instagram Profile" },
+  { icon: <XIcon />, href: "https://x.com/fayaz_unas", color: "bg-black", hover: "hover:bg-white", label: "Visit X Profile" },
+]
+
+const TECH_STATS = [
+  { icon: <Cpu />, label: "Technical Core", value: "Systems & Architecture", color: "bg-primary" },
+  { icon: <Code2 />, label: "Principal Stack", value: "Full-Stack Engineering", color: "bg-secondary" }
+]
+
+const Hero = React.memo(({ setNotification }) => {
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 500], [1, 0])
   const scale = useTransform(scrollY, [0, 500], [1, 0.9])
@@ -20,20 +37,18 @@ const Hero = React.memo(({ setNotification }) => {
 
   const rafId = useRef(null)
 
-  const handleResumeClick = (e) => {
+  const handleResumeClick = useCallback((e) => {
     e.preventDefault()
 
-    // Check for a valid URL in the configuration constant
     if (RESUME_DRIVE_URL && RESUME_DRIVE_URL.startsWith('http')) {
-      window.open(RESUME_DRIVE_URL, '_blank')
+      window.open(RESUME_DRIVE_URL, '_blank', 'noopener,noreferrer')
     } else {
-      // Display popup if URL is not configured
       setNotification({
         type: 'error',
-        message: 'RESUME_UPLINK_OFFLINE: Please configure the RESUME_DRIVE_URL in Hero.jsx.'
+        message: 'LINK_NOT_FOUND: Please configure the RESUME_DRIVE_URL.'
       })
     }
-  }
+  }, [setNotification])
 
   const handleMouseMove = useCallback((e) => {
     if (rafId.current) return
@@ -56,12 +71,12 @@ const Hero = React.memo(({ setNotification }) => {
   }, [handleMouseMove])
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col px-4 md:px-8 lg:px-12 overflow-x-clip bg-white brutal-grid pt-0 pb-0">
+    <section className="relative min-h-[100svh] flex flex-col overflow-x-clip bg-white brutal-grid pt-0 pb-0">
 
       {/* Main Content Integration */}
       <motion.div
         style={{ scale, opacity, rotate: rotateHero }}
-        className="w-full relative z-10 flex-grow flex items-center justify-center py-[4vh] lg:py-[2vh]"
+        className="w-full relative z-10 flex-grow flex items-center justify-center py-[4vh] lg:py-[2vh] px-4 md:px-8 lg:px-12 will-change-transform"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-[6vh] lg:gap-[4vw] items-center w-full">
           <div className="lg:col-span-8 text-left relative z-20">
@@ -135,9 +150,10 @@ const Hero = React.memo(({ setNotification }) => {
                   <Magnetic strength={0.2}>
                     <button
                       onClick={handleResumeClick}
+                      aria-label="Download or view Resume"
                       className="neo-button bg-black text-white hover:bg-primary hover:text-black transition-all inline-flex items-center gap-4 group py-3 px-6 lg:py-4 lg:px-8 shadow-neo-md"
                     >
-                      <span className="font-black text-base lg:text-lg uppercase tracking-widest">RESUME_UPLINK</span>
+                      <span className="font-black text-base lg:text-lg uppercase tracking-widest">RESUME</span>
                       <FileText className="w-5 h-5 lg:w-6 lg:h-6 group-hover:rotate-12 transition-transform" />
                     </button>
                   </Magnetic>
@@ -149,11 +165,7 @@ const Hero = React.memo(({ setNotification }) => {
           {/* Right: Technical Stats & Socials */}
           <div className="lg:col-span-4 flex flex-col gap-[1.5vh] lg:gap-[2vh] relative z-10 w-full max-w-[400px] lg:max-w-none mx-auto lg:mx-0">
             <div className="flex gap-[2vw] lg:gap-[1vw]">
-              {[
-                { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black", label: "Github Profile" },
-                { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white", label: "Linkedin Profile" },
-                { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Instagram Profile" },
-              ].map((social, i) => (
+              {SOCIAL_LINKS.map((social, i) => (
                 <Magnetic key={i} strength={0.3}>
                   <a
                     href={social.href}
@@ -162,16 +174,16 @@ const Hero = React.memo(({ setNotification }) => {
                     aria-label={social.label}
                     className={`${social.color} ${social.hover} border-[clamp(2px,0.3vw,4px)] border-black p-[4vw] lg:p-[1vw] shadow-neo-sm hover:translate-y-[-0.3vh] hover:shadow-neo active:translate-y-0 transition-all flex-1 flex items-center justify-center group/social`}
                   >
-                    {React.cloneElement(social.icon, { className: `w-[clamp(1.2rem,3vw,1.5rem)] h-[clamp(1.2rem,3vw,1.5rem)] ${social.color === "bg-accent" ? "text-white group-hover/social:text-accent" : "text-black group-hover/social:text-white"} transition-colors`, strokeWidth: 3 })}
+                    {React.cloneElement(social.icon, { 
+                      className: `w-[clamp(1.2rem,3vw,1.5rem)] h-[clamp(1.2rem,3vw,1.5rem)] ${social.color === "bg-accent" || social.color === "bg-black" ? "text-white group-hover/social:text-black" : "text-black group-hover/social:text-white"} transition-colors`, 
+                      strokeWidth: 3 
+                    })}
                   </a>
                 </Magnetic>
               ))}
             </div>
 
-            {[
-              { icon: <Cpu />, label: "Technical Core", value: "Systems & Architecture", color: "bg-primary" },
-              { icon: <Code2 />, label: "Principal Stack", value: "Full-Stack Engineering", color: "bg-secondary" }
-            ].map((stat, i) => (
+            {TECH_STATS.map((stat, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 10 }}
@@ -197,11 +209,11 @@ const Hero = React.memo(({ setNotification }) => {
       {/* Decorative Floating Elements */}
       <motion.div
         style={{ opacity, x: springX, y: springY }}
-        className="absolute top-[5%] left-[5%] w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] bg-primary/10 border-[clamp(1px,0.2vw,3px)] border-black/5 -z-10 -rotate-12 hidden lg:block"
+        className="absolute top-[5%] left-[5%] w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] bg-primary/10 border-[clamp(1px,0.2vw,3px)] border-black/5 -z-10 -rotate-12 hidden lg:block pointer-events-none will-change-transform"
       />
 
       {/* Background Marquee Integration */}
-      <div className="mt-auto w-full relative z-30 overflow-hidden">
+      <div className="mt-auto mb-12 w-full relative z-30 pointer-events-none">
         <div className="marquee-container rotate-[-1deg] border-y-[1px] border-black scale-105 origin-center">
           <div className="marquee-content py-1 lg:py-1.5 text-[clamp(0.6rem,1.2vw,0.85rem)] opacity-80">
             SYSTEMS ARCHITECTURE • RISC-V ENGINEERING • FULL-STACK DEVELOPMENT • PERFORMANCE OPTIMIZATION • DISTRIBUTED SYSTEMS • HARDWARE CO-DESIGN • CACHE HIERARCHIES • LOW-LATENCY COMPUTING • SYSTEMS ARCHITECTURE • RISC-V ENGINEERING • FULL-STACK DEVELOPMENT • PERFORMANCE OPTIMIZATION •
@@ -211,5 +223,7 @@ const Hero = React.memo(({ setNotification }) => {
     </section>
   )
 })
+
+Hero.displayName = 'Hero'
 
 export default Hero

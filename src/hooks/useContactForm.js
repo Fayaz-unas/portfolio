@@ -18,7 +18,7 @@ export const useContactForm = (setNotification) => {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch('https://formspree.io/f/mqkvnjed', {
+      const response = await fetch(import.meta.env.VITE_FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ export const useContactForm = (setNotification) => {
     } catch {
       setNotification({
         type: 'error',
-        message: 'SYSTEM OFFLINE: Could not establish a secure uplink. Please check your connection.'
+        message: 'SYSTEM OFFLINE: Could not establish connection. Please check your network.'
       })
     } finally {
       setIsSubmitting(false)

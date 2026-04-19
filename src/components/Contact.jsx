@@ -4,6 +4,19 @@ import { Mail, Github, Linkedin, Send, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
 import { useContactForm } from '../hooks/useContactForm'
 
+const XIcon = (props) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+)
+
+const SOCIAL_LINKS_CONTACT = [
+  { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black", label: "Visit Github Profile" },
+  { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white", label: "Visit Linkedin Profile" },
+  { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Visit Instagram Profile" },
+  { icon: <XIcon />, href: "https://x.com/fayaz_unas", color: "bg-black", hover: "hover:bg-white", label: "Visit X Profile" }
+]
+
 const Contact = React.memo(({ setNotification }) => {
   const { formData, isSubmitting, handleChange, handleSubmit } = useContactForm(setNotification)
 
@@ -49,11 +62,7 @@ const Contact = React.memo(({ setNotification }) => {
                 </a>
               </Magnetic>
               <div className="flex flex-wrap gap-4 md:gap-6">
-                {[
-                  { icon: <Github />, href: "https://github.com/Fayaz-unas", color: "bg-white", hover: "hover:bg-black", label: "Github Profile" },
-                  { icon: <Linkedin />, href: "https://linkedin.com/in/fayaz-unas", color: "bg-accent", hover: "hover:bg-white", label: "Linkedin Profile" },
-                  { icon: <Instagram />, href: "https://www.instagram.com/fayaz_unas", color: "bg-secondary", hover: "hover:bg-black", label: "Instagram Profile" }
-                ].map((social, i) => (
+                {SOCIAL_LINKS_CONTACT.map((social, i) => (
                   <Magnetic key={i} strength={0.3}>
                     <a
                       href={social.href}
@@ -62,7 +71,7 @@ const Contact = React.memo(({ setNotification }) => {
                       aria-label={social.label}
                       className={`${social.color} ${social.hover} border-4 md:border-[6px] border-black p-5 md:p-6 shadow-neo hover:translate-y-[-6px] hover:shadow-neo-hover active:translate-y-0 transition-all block group/social flex items-center justify-center w-20 h-20 md:w-24 md:h-24`}
                     >
-                      {React.cloneElement(social.icon, { className: `w-8 h-8 md:w-10 md:h-10 ${social.color === "bg-accent" ? "text-white group-hover/social:text-accent" : "text-black group-hover/social:text-white"} transition-colors`, strokeWidth: 3 })}
+                      {React.cloneElement(social.icon, { className: `w-8 h-8 md:w-10 md:h-10 ${social.color === "bg-accent" || social.color === "bg-black" ? "text-white group-hover/social:text-black" : "text-black group-hover/social:text-white"} transition-colors`, strokeWidth: 3 })}
                     </a>
                   </Magnetic>
                 ))}
@@ -81,7 +90,7 @@ const Contact = React.memo(({ setNotification }) => {
             className="relative"
           >
             <form
-              className="bg-white border-[clamp(4px,0.8vw,10px)] border-black p-8 md:p-12 lg:p-14 shadow-neo-lg space-y-8 relative z-10 brutal-grid overflow-hidden"
+              className="bg-white border-[clamp(4px,0.8vw,10px)] border-black p-8 md:p-12 lg:p-14 shadow-neo-lg space-y-8 relative z-10 brutal-grid overflow-hidden will-change-transform"
               onSubmit={handleSubmit}
             >
               {/* Terminal Title Bar */}
@@ -139,6 +148,7 @@ const Contact = React.memo(({ setNotification }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
+                  aria-label={isSubmitting ? "Transmitting message" : "Send message"}
                   className="neo-button w-full h-[clamp(65px,12vw,90px)] bg-black text-white text-lg lg:text-xl group/submit overflow-hidden border-[clamp(4px,0.5vw,8px)] shadow-neo-lg active:shadow-neo disabled:opacity-50"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-6 uppercase font-black tracking-[0.4em]">
@@ -153,5 +163,7 @@ const Contact = React.memo(({ setNotification }) => {
     </section>
   )
 })
+
+Contact.displayName = 'Contact'
 
 export default Contact

@@ -3,42 +3,42 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight, Github, ChevronRight, Zap } from 'lucide-react'
 import Magnetic from './Magnetic'
 
-const Projects = React.memo(() => {
-  const projects = [
-    {
-      title: "NAVIA",
-      subtitle: "Assistive AI",
-      desc: "An AI-powered spatial awareness engine using real-time computer vision to navigate and describe environments for visually impaired users.",
-      tech: ["Python", "OpenCV", "Edge Computing"],
-      link: "https://github.com/Fayaz-unas/NAVIA",
-      color: "bg-primary"
-    },
-    {
-      title: "SHINKEI",
-      subtitle: "Logic Flow",
-      desc: "A real-time program execution visualizer that maps call graphs and control flow, making complex debugging intuitive and visual.",
-      tech: ["React", "D3.js", "TypeScript"],
-      link: "https://github.com/Fayaz-unas/SHINKEI",
-      color: "bg-secondary"
-    },
-    {
-      title: "HMF-MAC",
-      subtitle: "ISA Research",
-      desc: "Adaptive hardware-managed cache replacement policies for RISC-V processors, improving L2 hit rates by up to 18%.",
-      tech: ["C++", "gem5", "Computer Arch"],
-      link: "https://github.com/Fayaz-unas/HMF-MAC",
-      color: "bg-accent"
-    },
-    {
-      title: "Hostel MS",
-      subtitle: "Scalable ERP",
-      desc: "A high-concurrency institutional ERP handling 5000+ daily transactions with optimized query plans and role-based access control.",
-      tech: ["Node.js", "MySQL", "Architecture"],
-      link: "https://github.com/Fayaz-unas",
-      color: "bg-success"
-    }
-  ]
+const PROJECT_LIST = [
+  {
+    title: "NAVIA",
+    subtitle: "Assistive AI",
+    desc: "An AI-powered spatial awareness engine using real-time computer vision to navigate and describe environments for visually impaired users.",
+    tech: ["Python", "OpenCV", "Edge Computing"],
+    link: "https://github.com/Fayaz-unas/NAVIA",
+    color: "bg-primary"
+  },
+  {
+    title: "SHINKEI",
+    subtitle: "Logic Flow",
+    desc: "A real-time program execution visualizer that maps call graphs and control flow, making complex debugging intuitive and visual.",
+    tech: ["React", "D3.js", "TypeScript"],
+    link: "https://github.com/Fayaz-unas/SHINKEI",
+    color: "bg-secondary"
+  },
+  {
+    title: "HMF-MAC",
+    subtitle: "ISA Research",
+    desc: "Adaptive hardware-managed cache replacement policies for RISC-V processors, improving L2 hit rates by up to 18%.",
+    tech: ["C++", "gem5", "Computer Arch"],
+    link: "https://github.com/Fayaz-unas/HMF-MAC",
+    color: "bg-accent"
+  },
+  {
+    title: "Hostel MS",
+    subtitle: "Scalable ERP",
+    desc: "A high-concurrency institutional ERP handling 5000+ daily transactions with optimized query plans and role-based access control.",
+    tech: ["Node.js", "MySQL", "Architecture"],
+    link: "https://github.com/Fayaz-unas",
+    color: "bg-success"
+  }
+]
 
+const Projects = React.memo(() => {
   return (
     <div id="projects" className="flex flex-col lg:flex-row items-stretch lg:items-center gap-[6vh] lg:gap-20 h-full py-[8vh] lg:py-0 px-0">
       <div className="w-full lg:w-[520px] px-4 md:px-8 lg:px-0 flex-shrink-0 flex flex-col justify-center relative z-10 text-left">
@@ -58,7 +58,7 @@ const Projects = React.memo(() => {
             SELECTED <br />
             <span className="bg-primary border-[clamp(4px,0.8vw,8px)] border-black px-[4vw] lg:px-8 shadow-neo-xl inline-block rotate-1 mt-[1vh]">WORKS.</span>
           </h2>
-          <p className="text-[clamp(1.1rem,2.5vw,1.75rem)] text-black font-black font-body leading-[1.3] mb-[6vh] max-w-lg border-l-[clamp(8px,1.5vw,12px)] border-black pl-[4vw] lg:pl-10">
+          <p className="text-[clamp(1.1rem,2.5vw,1.75rem)] text-black font-black font-body leading-[1.3] mb-[6vh] max-w-lg">
             Handpicked engineering projects — each one a deep-dive into solving real-world problems with precision and craft.
           </p>
           <Magnetic strength={0.1}>
@@ -78,17 +78,17 @@ const Projects = React.memo(() => {
       </div>
 
       <div className="flex flex-col lg:flex-row gap-[4vh] lg:gap-8 items-stretch px-4 md:px-8 lg:px-0 lg:py-6">
-        {projects.map((project, idx) => (
+        {PROJECT_LIST.map((project, idx) => (
           <motion.div
             key={idx}
             initial={{ opacity: 0, scale: 0.95, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: idx * 0.1, duration: 0.5 }}
-            className={`w-full lg:w-[400px] lg:h-[calc(100vh-100px)] ${project.color} border-[clamp(4px,0.8vw,6px)] border-black shadow-neo-md md:shadow-neo-lg p-[8vw] lg:p-8 flex flex-col group cursor-pointer relative overflow-hidden active:translate-x-2 active:translate-y-2 active:shadow-neo transition-all flex-shrink-0 text-left`}
+            className={`w-full lg:w-[400px] lg:h-[calc(100vh-100px)] ${project.color} border-[clamp(4px,0.8vw,6px)] border-black shadow-neo-md md:shadow-neo-lg p-[8vw] lg:p-8 flex flex-col group cursor-pointer relative overflow-hidden active:translate-x-2 active:translate-y-2 active:shadow-neo transition-all flex-shrink-0 text-left will-change-transform`}
           >
             {/* Background Texture */}
-            <div className="absolute inset-0 brutal-stripes opacity-10 md:group-hover:opacity-20 transition-opacity" />
+            <div className="absolute inset-0 brutal-stripes opacity-10 md:group-hover:opacity-20 transition-opacity pointer-events-none" />
 
             <div className="relative z-10 flex flex-col h-full justify-between">
               <div>
@@ -138,5 +138,7 @@ const Projects = React.memo(() => {
     </div>
   )
 })
+
+Projects.displayName = 'Projects'
 
 export default Projects

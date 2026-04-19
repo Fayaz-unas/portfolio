@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { X, CheckCircle2, AlertCircle } from 'lucide-react'
 
-const Notification = ({ type, message, onClose }) => {
+const Notification = React.memo(({ type, message, onClose }) => {
   useEffect(() => {
     const timer = setTimeout(onClose, 5000)
     return () => clearTimeout(timer)
@@ -15,7 +15,7 @@ const Notification = ({ type, message, onClose }) => {
       initial={{ opacity: 0, y: 50, scale: 0.9, rotate: -2 }}
       animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
       exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
-      className="fixed bottom-10 right-5 md:right-10 z-[1000] max-w-[90vw] w-[400px]"
+      className="fixed bottom-10 right-5 md:right-10 z-[200] max-w-[90vw] w-[400px] will-change-transform"
     >
       <div className={`relative bg-white border-4 border-black p-6 shadow-[8px_8px_0px_rgba(0,0,0,1)] flex items-start gap-4 overflow-hidden`}>
         <div className={`absolute top-0 left-0 w-2 h-full ${isSuccess ? 'bg-success' : 'bg-danger'}`} />
@@ -39,6 +39,7 @@ const Notification = ({ type, message, onClose }) => {
 
         <button 
           onClick={onClose}
+          aria-label="Close notification"
           className="hover:bg-black/5 p-1 transition-colors"
         >
           <X className="w-5 h-5 text-black" strokeWidth={3} />
@@ -54,6 +55,8 @@ const Notification = ({ type, message, onClose }) => {
       </div>
     </motion.div>
   )
-}
+})
+
+Notification.displayName = 'Notification'
 
 export default Notification

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useCallback } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 
 const Magnetic = React.memo(({ children, strength = 0.5, className = "" }) => {
@@ -10,7 +10,7 @@ const Magnetic = React.memo(({ children, strength = 0.5, className = "" }) => {
   const springX = useSpring(x, { stiffness: 300, damping: 20, mass: 0.1 })
   const springY = useSpring(y, { stiffness: 300, damping: 20, mass: 0.1 })
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (!ref.current) return
     const { clientX, clientY } = e
     const { left, top, width, height } = ref.current.getBoundingClientRect()
@@ -18,12 +18,12 @@ const Magnetic = React.memo(({ children, strength = 0.5, className = "" }) => {
     const targetY = (clientY - (top + height / 2)) * strength
     x.set(targetX)
     y.set(targetY)
-  }
+  }, [strength, x, y])
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     x.set(0)
     y.set(0)
-  }
+  }, [x, y])
 
   return (
     <motion.div
@@ -37,5 +37,7 @@ const Magnetic = React.memo(({ children, strength = 0.5, className = "" }) => {
     </motion.div>
   )
 })
+
+Magnetic.displayName = 'Magnetic'
 
 export default Magnetic

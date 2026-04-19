@@ -6,19 +6,6 @@
   color-scheme: light;
 }
 
-html, body {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background-color: #FFFFFF;
-  color: #000000;
-  font-family: 'Space Grotesk', sans-serif;
-  overflow-x: hidden;
-}
-
 @layer components {
   .neo-card {
     @apply bg-white border-4 border-black shadow-neo transition-all;
