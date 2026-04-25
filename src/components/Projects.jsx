@@ -33,7 +33,7 @@ const PROJECT_LIST = [
     subtitle: "Scalable ERP",
     desc: "A high-concurrency institutional ERP handling 5000+ daily transactions with optimized query plans and role-based access control.",
     tech: ["Node.js", "MySQL", "Architecture"],
-    link: "https://github.com/Fayaz-unas",
+    link: "https://github.com/Fayaz-unas/Campus-hostel-automation",
     color: "bg-success"
   }
 ]

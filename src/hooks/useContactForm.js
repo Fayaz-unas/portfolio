@@ -18,10 +18,17 @@ export const useContactForm = (setNotification) => {
     setIsSubmitting(true)
     
     try {
-      const response = await fetch(import.meta.env.VITE_FORMSPREE_ENDPOINT, {
+      const endpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT
+
+      if (!endpoint) {
+        throw new Error('Formspree endpoint is not configured')
+      }
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(formData)
       })
@@ -38,10 +45,12 @@ export const useContactForm = (setNotification) => {
           message: 'CRITICAL ERROR: Data transmission failed. Please try again.'
         })
       }
-    } catch {
+    } catch (error) {
       setNotification({
         type: 'error',
-        message: 'SYSTEM OFFLINE: Could not establish connection. Please check your network.'
+        message: error.message === 'Formspree endpoint is not configured'
+          ? 'CONFIGURATION ERROR: MSG_ENDPOINT missing in environment.'
+          : 'SYSTEM OFFLINE: Could not establish connection. Please check your network.'
       })
     } finally {
       setIsSubmitting(false)
