@@ -37,12 +37,12 @@ const Contact = React.memo(({ setNotification }) => {
             </div>
 
             <h2 className="text-[clamp(2.5rem,8vw,5.5rem)] font-black font-heading mb-6 tracking-tighter leading-[0.8] text-black">
-              LET'S <br />
+              LET&apos;S <br />
               <span className="bg-secondary border-[clamp(4px,0.7vw,8px)] border-black px-6 shadow-neo-md inline-block rotate-2 mt-2">BUILD.</span>
             </h2>
 
             <p className="text-[clamp(1.1rem,2.5vw,1.5rem)] text-black font-black font-body leading-[1.3] mb-4 max-w-sm border-l-[8px] border-black pl-8">
-              Have a complex engineering challenge or an ambitious project? I'm always open to conversations that push boundaries.
+              Have a complex engineering challenge or an ambitious project? I&apos;m always open to conversations that push boundaries.
             </p>
 
             <div className="space-y-6 lg:space-y-8">
