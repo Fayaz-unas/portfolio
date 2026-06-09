@@ -83,9 +83,9 @@ const Hero = React.memo(({ setNotification }) => {
                 transition={{ delay: 0.1 }}
                 className="mb-2 lg:mb-3"
               >
-                <h2 className="text-[clamp(3rem,8vw,6rem)] font-black text-black tracking-[calc(-0.05em)] uppercase leading-none block border-b-[clamp(6px,1vw,12px)] border-primary w-fit pb-1">
+                <h1 className="text-[clamp(3rem,8vw,6rem)] font-black text-black tracking-[calc(-0.05em)] uppercase leading-none block border-b-[clamp(6px,1vw,12px)] border-primary w-fit pb-1">
                   FAYAZ UNAS
-                </h2>
+                </h1>
               </motion.div>
 
               {/* Role Tag */}
@@ -98,7 +98,7 @@ const Hero = React.memo(({ setNotification }) => {
                 <span className="font-mono text-[clamp(0.7rem,1.4vw,0.9rem)] font-bold text-black/40 tracking-[0.15em] uppercase">Computer Science Engineer · MEC Kochi</span>
               </motion.div>
 
-              <h1 className="text-[clamp(2rem,7vw,5.5rem)] font-black font-heading mb-[2vh] lg:mb-[3vh] tracking-tighter leading-[0.85] text-black/90">
+              <h2 className="text-[clamp(2rem,7vw,5.5rem)] font-black font-heading mb-[2vh] lg:mb-[3vh] tracking-tighter leading-[0.85] text-black/90">
                 <motion.span
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ const Hero = React.memo(({ setNotification }) => {
                 >
                   DIGITAL PRECISION.
                 </motion.span>
-              </h1>
+              </h2>
 
               <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-start md:items-center">
                 <motion.div

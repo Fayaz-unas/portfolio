@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fayaz-unas.is-a.dev/sitemap.xml

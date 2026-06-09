@@ -130,3 +130,4 @@ Thumbs.db
 dist
 dist-ssr
 *.local
+.agent
