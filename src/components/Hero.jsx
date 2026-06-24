@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from 'react'
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
-import { FileText, Cpu, Code2, Github, Linkedin, Instagram } from 'lucide-react'
+import { FileText, Github, Linkedin, Instagram } from 'lucide-react'
 import Magnetic from './Magnetic'
 
 const RESUME_DRIVE_URL = import.meta.env.VITE_RESUME_DRIVE_URL || ""
@@ -18,22 +18,58 @@ const SOCIAL_LINKS = [
   { icon: <XIcon />, href: "https://x.com/fayaz_unas", color: "bg-black", hover: "hover:bg-white", label: "Visit X Profile" },
 ]
 
-const TECH_STATS = [
-  { icon: <Cpu />, label: "Technical Core", value: "Systems & Architecture", color: "bg-primary" },
-  { icon: <Code2 />, label: "Principal Stack", value: "Full-Stack Engineering", color: "bg-secondary" }
+const HERO_SKILLS = [
+  { name: "C", category: "SYS", color: "bg-secondary", rotate: "-rotate-1", iconUrl: "https://skillicons.dev/icons?i=c" },
+  { name: "C++", category: "SYS", color: "bg-primary", rotate: "rotate-2", iconUrl: "https://skillicons.dev/icons?i=cpp" },
+  { name: "Java", category: "LANG", color: "bg-success", rotate: "-rotate-2", iconUrl: "https://skillicons.dev/icons?i=java" },
+  { name: "JavaScript", category: "LANG", color: "bg-purple", rotate: "rotate-1", iconUrl: "https://skillicons.dev/icons?i=js" },
+  { name: "TypeScript", category: "LANG", color: "bg-warning", rotate: "-rotate-1", iconUrl: "https://skillicons.dev/icons?i=ts" },
+  { name: "Python", category: "LANG", color: "bg-success", rotate: "rotate-2", iconUrl: "https://skillicons.dev/icons?i=python" },
+  { name: "React", category: "WEB", color: "bg-secondary", rotate: "-rotate-2", iconUrl: "https://skillicons.dev/icons?i=react" },
+  { name: "Vite", category: "DEV", color: "bg-success", rotate: "rotate-1", iconUrl: "https://skillicons.dev/icons?i=vite" },
+  { name: "HTML", category: "WEB", color: "bg-accent", rotate: "-rotate-1", iconUrl: "https://skillicons.dev/icons?i=html" },
+  { name: "CSS", category: "WEB", color: "bg-primary", rotate: "rotate-2", iconUrl: "https://skillicons.dev/icons?i=css" },
+  { name: "Git", category: "DEV", color: "bg-accent", rotate: "-rotate-2", iconUrl: "https://skillicons.dev/icons?i=git" },
+  { name: "Linux", category: "OPS", color: "bg-purple", rotate: "rotate-1", iconUrl: "https://skillicons.dev/icons?i=linux" },
 ]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.04,
+      delayChildren: 0.15
+    }
+  }
+}
+
+const letterVariants = {
+  hidden: { y: 60, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      damping: 14,
+      stiffness: 120
+    }
+  }
+}
 
 const Hero = React.memo(({ setNotification }) => {
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 500], [1, 0])
-  const scale = useTransform(scrollY, [0, 500], [1, 0.9])
-  const rotateHero = useTransform(scrollY, [0, 500], [0, -5])
+  const scale = useTransform(scrollY, [0, 500], [1, 0.95])
+  const rotateHero = useTransform(scrollY, [0, 500], [0, -3])
 
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  const springX = useSpring(mouseX, { damping: 50, stiffness: 400 })
-  const springY = useSpring(mouseY, { damping: 50, stiffness: 400 })
+  const springX = useSpring(mouseX, { damping: 50, stiffness: 300 })
+  const springY = useSpring(mouseY, { damping: 50, stiffness: 300 })
+
+  const [hoveredSkill, setHoveredSkill] = React.useState(null)
 
   const handleResumeClick = useCallback((e) => {
     e.preventDefault()
@@ -51,8 +87,8 @@ const Hero = React.memo(({ setNotification }) => {
   const handleMouseMove = useCallback((e) => {
     const { clientX, clientY } = e
     const { innerWidth, innerHeight } = window
-    mouseX.set((clientX / innerWidth - 0.5) * 50)
-    mouseY.set((clientY / innerHeight - 0.5) * 50)
+    mouseX.set((clientX / innerWidth - 0.5) * 40)
+    mouseY.set((clientY / innerHeight - 0.5) * 40)
   }, [mouseX, mouseY])
 
   useEffect(() => {
@@ -63,149 +99,155 @@ const Hero = React.memo(({ setNotification }) => {
   }, [handleMouseMove])
 
   return (
-    <section className="relative min-h-[100svh] flex flex-col overflow-x-clip bg-white brutal-grid pt-0 pb-0">
+    <section className="relative min-h-[100svh] flex flex-col justify-between overflow-x-clip bg-white brutal-grid pt-0 pb-0 select-none">
 
       {/* Main Content Integration */}
       <motion.div
         style={{ scale, opacity, rotate: rotateHero }}
-        className="w-full relative z-10 flex-grow flex items-center justify-center py-[4vh] lg:py-[2vh] px-4 md:px-8 lg:px-12 will-change-transform"
+        className="w-full relative z-10 flex-grow flex items-center py-[4vh] lg:py-[6vh] px-4 md:px-8 lg:px-12 will-change-transform"
       >
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-[6vh] lg:gap-[4vw] items-center w-full">
-          <div className="lg:col-span-8 text-left relative z-20">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, type: 'spring' }}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center w-full">
+          {/* Left: Main Details */}
+          <div className="lg:col-span-7 text-left flex flex-col items-start relative z-20">
+            {/* Main Name Attraction */}
+            <motion.h1
+              initial="hidden"
+              animate="visible"
+              variants={containerVariants}
+              className="text-[clamp(3.5rem,10vw,8.5rem)] font-heading font-black text-black tracking-tighter leading-[0.9] uppercase flex flex-wrap gap-x-[0.3em] py-2 select-none relative z-20 w-full"
             >
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="mb-2 lg:mb-3"
-              >
-                <h1 className="text-[clamp(3rem,8vw,6rem)] font-black text-black tracking-[calc(-0.05em)] uppercase leading-none block border-b-[clamp(6px,1vw,12px)] border-primary w-fit pb-1">
-                  FAYAZ UNAS
-                </h1>
-              </motion.div>
-
-              {/* Role Tag */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.15 }}
-                className="mb-3 lg:mb-5"
-              >
-                <span className="font-mono text-[clamp(0.7rem,1.4vw,0.9rem)] font-bold text-black/40 tracking-[0.15em] uppercase">Computer Science Engineer · MEC Kochi</span>
-              </motion.div>
-
-              <h2 className="text-[clamp(2rem,7vw,5.5rem)] font-black font-heading mb-[2vh] lg:mb-[3vh] tracking-tighter leading-[0.85] text-black/90">
-                <motion.span
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="block"
-                >
-                  ENGINEERING
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="inline-block bg-primary border-[clamp(4px,0.5vw,8px)] border-black px-[3vw] md:px-[2vw] shadow-neo-md md:shadow-neo-lg -rotate-1 mt-[0.5vh]"
-                >
-                  DIGITAL PRECISION.
-                </motion.span>
-              </h2>
-
-              <div className="flex flex-col md:flex-row gap-6 lg:gap-10 items-start md:items-center">
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                  className="relative max-w-[min(100%,580px)]"
-                >
-                  <div className="flex bg-white border-[clamp(3px,0.4vw,6px)] border-black shadow-neo-sm md:shadow-neo-md relative z-20 overflow-hidden">
-                    <div className="w-[clamp(5px,0.6vw,8px)] bg-secondary flex-shrink-0" />
-                    <p className="text-[clamp(1rem,1.8vw,1.25rem)] text-black font-black font-body leading-[1.2] p-[4vw] md:p-[1.5vw]">
-                      Computer Science Engineer bridging
-                      <span className="bg-secondary/20 px-[0.5ch] mx-[0.2ch]">hardware precision</span> with full-stack mastery — from RISC-V pipelines to
-                      <span className="underline decoration-[clamp(3px,0.4vw,6px)] decoration-primary underline-offset-[0.2em] px-[0.2ch]">production-grade</span> applications.
-                    </p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 }}
-                >
-                  <Magnetic strength={0.2}>
-                    <button
-                      onClick={handleResumeClick}
-                      aria-label="Download or view Resume"
-                      className="neo-button bg-black text-white hover:bg-primary hover:text-black transition-all inline-flex items-center gap-4 group py-3 px-6 lg:py-4 lg:px-8 shadow-neo-md"
+              {["FAYAZ", "UNAS"].map((word, wordIndex) => (
+                <span key={wordIndex} className="inline-block whitespace-nowrap">
+                  {word.split("").map((char, charIndex) => (
+                    <motion.span
+                      key={charIndex}
+                      variants={letterVariants}
+                      className="inline-block cursor-default select-none"
                     >
-                      <span className="font-black text-base lg:text-lg uppercase tracking-widest">RESUME</span>
-                      <FileText className="w-5 h-5 lg:w-6 lg:h-6 group-hover:rotate-12 transition-transform" />
-                    </button>
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+              ))}
+            </motion.h1>
+
+            {/* Description Box (Clean, Left-aligned, Neobrutalist Styled) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8, type: 'spring' }}
+              className="relative max-w-2xl mt-6 z-20 w-full"
+            >
+              <div className="bg-white border-4 border-black p-5 md:p-6 shadow-neo relative overflow-hidden">
+                {/* Small top-left accents */}
+                <div className="absolute top-0 left-0 w-full h-[5px] bg-gradient-to-r from-primary via-secondary to-accent" />
+                <p className="text-[clamp(1rem,1.8vw,1.25rem)] text-black font-black font-body leading-relaxed">
+                  Computer Science Engineer at <span className="bg-secondary/20 px-[0.5ch] mx-[0.2ch] border-b-2 border-secondary font-bold">Model Engineering College, Kochi</span>.
+                  I architect systems from the silicon up — optimizing hardware pipelines, building resilient distributed backends, and shipping polished user-facing applications.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Action Buttons (CTAs) & Social Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.8, type: 'spring' }}
+              className="flex flex-col sm:flex-row gap-8 justify-start items-center mt-8 z-20 w-full sm:w-auto"
+            >
+              <Magnetic strength={0.2}>
+                <button
+                  onClick={handleResumeClick}
+                  aria-label="Download or view Resume"
+                  className="neo-button bg-black text-white hover:bg-primary hover:text-black inline-flex items-center gap-4 py-5 px-10 shadow-neo-md hover:shadow-neo-lg transition-all w-full sm:w-auto text-center justify-center group"
+                >
+                  <span className="font-black text-lg uppercase tracking-widest">RESUME</span>
+                  <FileText className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                </button>
+              </Magnetic>
+
+              <div className="flex gap-5 items-center">
+                {SOCIAL_LINKS.map((social, i) => (
+                  <Magnetic key={i} strength={0.3}>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={social.label}
+                      className={`${social.color} ${social.hover} border-4 border-black p-5 shadow-neo-md hover:shadow-neo-lg hover:-translate-y-1 transition-all flex items-center justify-center group/social`}
+                    >
+                      {React.cloneElement(social.icon, {
+                        className: `w-6 h-6 ${social.color === "bg-accent" || social.color === "bg-black" ? "text-white group-hover/social:text-black" : "text-black group-hover/social:text-white"} transition-colors`,
+                        strokeWidth: 3
+                      })}
+                    </a>
                   </Magnetic>
-                </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>
 
-          {/* Right: Technical Stats & Socials */}
-          <div className="lg:col-span-4 flex flex-col gap-[1.5vh] lg:gap-[2vh] relative z-10 w-full max-w-[400px] lg:max-w-none mx-auto lg:mx-0">
-            <div className="flex gap-[2vw] lg:gap-[1vw]">
-              {SOCIAL_LINKS.map((social, i) => (
-                <Magnetic key={i} strength={0.3}>
-                  <a
-                    href={social.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={social.label}
-                    className={`${social.color} ${social.hover} border-[clamp(2px,0.3vw,4px)] border-black p-[4vw] lg:p-[1vw] shadow-neo-sm hover:translate-y-[-0.3vh] hover:shadow-neo active:translate-y-0 transition-all flex-1 flex items-center justify-center group/social`}
-                  >
-                    {React.cloneElement(social.icon, { 
-                      className: `w-[clamp(1.2rem,3vw,1.5rem)] h-[clamp(1.2rem,3vw,1.5rem)] ${social.color === "bg-accent" || social.color === "bg-black" ? "text-white group-hover/social:text-black" : "text-black group-hover/social:text-white"} transition-colors`, 
-                      strokeWidth: 3 
-                    })}
-                  </a>
-                </Magnetic>
-              ))}
-            </div>
+          {/* Right: Skills Grid */}
+          <div className="lg:col-span-5 w-full relative z-20 mt-10 lg:mt-0 flex justify-center">
+            <div className="flex flex-col items-start max-w-fit">
+              {/* Hovered Skill Name */}
+              <div className="h-16 flex items-center mb-4">
+                <motion.span
+                  key={hoveredSkill || "default"}
+                  initial={{ opacity: 0, x: -15, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="text-[clamp(1.75rem,4vw,2.75rem)] font-heading font-black text-black uppercase tracking-widest text-left select-none"
+                >
+                  {hoveredSkill || ""}
+                </motion.span>
+              </div>
 
-            {TECH_STATS.map((stat, i) => (
               <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + i * 0.1 }}
-                className="neo-card p-[3.5vw] lg:p-[1vw] flex items-center justify-between group hover:bg-black hover:text-white transition-all border-[clamp(2px,0.3vw,4px)] shadow-neo-sm"
+                initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: 1.0, duration: 0.8, type: 'spring' }}
+                className="grid grid-cols-4 gap-3 sm:gap-4 max-w-fit"
               >
-                <div className="flex items-center gap-[3vw] lg:gap-[1vw]">
-                  <div className={`p-[2vw] lg:p-[0.6vw] ${stat.color} border-[clamp(2px,0.3vw,4px)] border-black shadow-neo-sm group-hover:bg-white transition-colors`}>
-                    {React.cloneElement(stat.icon, { className: "w-[clamp(1rem,2.5vw,1.25rem)] h-[clamp(1rem,2.5vw,1.25rem)] text-black", strokeWidth: 3 })}
-                  </div>
-                  <div className="text-left">
-                    <p className="text-[clamp(0.45rem,1.2vw,0.6rem)] uppercase font-black tracking-widest text-black/40 group-hover:text-white/40 mb-0 transition-colors">{stat.label}</p>
-                    <p className="text-[clamp(0.8rem,2vw,1rem)] font-black text-black group-hover:text-white transition-colors leading-none">{stat.value}</p>
-                  </div>
-                </div>
+                {HERO_SKILLS.map((skill, index) => {
+                  return (
+                    <Magnetic key={index} strength={0.2}>
+                      <motion.div
+                        whileHover={{ scale: 1.15, rotate: index % 2 === 0 ? 5 : -5 }}
+                        onMouseEnter={() => setHoveredSkill(skill.name)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                        className={`cursor-pointer flex items-center justify-center w-[clamp(60px,15vw,72px)] h-[clamp(60px,15vw,72px)] sm:w-[94px] sm:h-[94px] ${skill.rotate}`}
+                        title={skill.name}
+                        aria-label={skill.name}
+                      >
+                        <img src={skill.iconUrl} alt={skill.name} className="w-[88%] h-[88%] object-contain filter drop-shadow-[6px_6px_0px_#000000] hover:drop-shadow-[8px_8px_0px_#000000] transition-all duration-200" />
+                      </motion.div>
+                    </Magnetic>
+                  )
+                })}
               </motion.div>
-            ))}
+            </div>
           </div>
         </div>
       </motion.div>
 
-      {/* Decorative Floating Elements */}
+      {/* Decorative Floating Elements (Enhanced & Subtle) */}
       <motion.div
         style={{ opacity, x: springX, y: springY }}
-        className="absolute top-[5%] left-[5%] w-[6vw] h-[6vw] min-w-[30px] min-h-[30px] bg-primary/10 border-[clamp(1px,0.2vw,3px)] border-black/5 -z-10 -rotate-12 hidden lg:block pointer-events-none will-change-transform"
+        className="absolute top-[15%] left-[8%] w-[5vw] h-[5vw] min-w-[40px] min-h-[40px] bg-primary/10 border-4 border-black/10 -z-10 -rotate-12 hidden lg:block pointer-events-none will-change-transform"
+      />
+      <motion.div
+        style={{ opacity, x: useTransform(springX, (v) => -v), y: useTransform(springY, (v) => -v) }}
+        className="absolute bottom-[25%] right-[10%] w-[6vw] h-[6vw] min-w-[50px] min-h-[50px] bg-secondary/10 border-4 border-black/10 -z-10 rotate-45 hidden lg:block pointer-events-none will-change-transform"
+      />
+      <motion.div
+        style={{ opacity, x: useTransform(springX, (v) => v * 0.5), y: useTransform(springY, (v) => -v * 0.8) }}
+        className="absolute top-[20%] right-[15%] w-[4vw] h-[4vw] min-w-[30px] min-h-[30px] bg-accent/10 border-4 border-black/10 -z-10 -rotate-6 hidden lg:block pointer-events-none will-change-transform"
       />
 
       {/* Background Marquee Integration */}
-      <div className="mt-auto mb-12 w-full relative z-30 pointer-events-none">
+      <div className="w-full relative z-30 pointer-events-none mb-8">
         <div className="marquee-container rotate-[-1deg] border-y-[1px] border-black scale-105 origin-center">
           <div className="marquee-content py-1 lg:py-1.5 text-[clamp(0.6rem,1.2vw,0.85rem)] opacity-80">
             SYSTEMS ARCHITECTURE • RISC-V ENGINEERING • FULL-STACK DEVELOPMENT • PERFORMANCE OPTIMIZATION • DISTRIBUTED SYSTEMS • HARDWARE CO-DESIGN • CACHE HIERARCHIES • LOW-LATENCY COMPUTING • SYSTEMS ARCHITECTURE • RISC-V ENGINEERING • FULL-STACK DEVELOPMENT • PERFORMANCE OPTIMIZATION •

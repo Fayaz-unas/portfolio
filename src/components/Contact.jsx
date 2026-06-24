@@ -32,9 +32,6 @@ const Contact = React.memo(({ setNotification }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-4 bg-accent text-white px-6 py-2 border-[3px] border-black shadow-neo-sm mb-6 rotate-[-1deg]">
-              <span className="text-[clamp(9px,1.8vw,12px)] font-black uppercase tracking-[0.4em]">COMM_CHANNEL.V3</span>
-            </div>
 
             <h2 className="text-[clamp(2.5rem,8vw,5.5rem)] font-black font-heading mb-6 tracking-tighter leading-[0.8] text-black">
               LET&apos;S <br />
@@ -98,7 +95,6 @@ const Contact = React.memo(({ setNotification }) => {
                 <div className="w-3 h-3 rounded-full bg-danger border border-white/20" />
                 <div className="w-3 h-3 rounded-full bg-warning border border-white/20" />
                 <div className="w-3 h-3 rounded-full bg-success border border-white/20" />
-                <span className="ml-auto text-[10px] font-black text-white/40 tracking-[0.5em]">MSG_UPLINK.EXE</span>
               </div>
 
               <div className="pt-8 grid grid-cols-1 md:grid-cols-2 gap-8">

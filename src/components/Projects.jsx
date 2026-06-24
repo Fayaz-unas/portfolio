@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, Github, ChevronRight, Zap } from 'lucide-react'
+import { ArrowUpRight, Github, ChevronRight } from 'lucide-react'
 import Magnetic from './Magnetic'
 
 const PROJECT_LIST = [
@@ -48,12 +48,6 @@ const Projects = React.memo(() => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8 }}
         >
-          <div className="flex items-center gap-4 md:gap-6 mb-[4vh]">
-            <div className="w-[clamp(60px,15vw,80px)] h-[clamp(30px,8vw,40px)] bg-black flex items-center justify-center -rotate-3 shadow-neo-md">
-              <Zap className="text-white fill-white w-[clamp(18px,4vw,24px)]" />
-            </div>
-            <span className="text-black font-black tracking-[0.3em] text-[clamp(8px,1.5vw,12px)] uppercase underline decoration-[clamp(2px,0.4vw,4px)] underline-offset-[clamp(4px,0.8vw,8px)]">Artifacts.lib</span>
-          </div>
           <h2 className="text-[clamp(2.5rem,10vw,6rem)] font-black font-heading mb-[4vh] tracking-tighter leading-[0.8] text-black">
             SELECTED <br />
             <span className="bg-primary border-[clamp(4px,0.8vw,8px)] border-black px-[4vw] lg:px-8 shadow-neo-xl inline-block rotate-1 mt-[1vh]">WORKS.</span>

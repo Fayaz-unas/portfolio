@@ -10,7 +10,7 @@ const Footer = React.memo(() => {
       <div className="w-full flex flex-col gap-12 md:gap-16 relative z-10">
         {/* Directory and Links */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16">
-          <div className="space-y-6">
+          <div className="space-y-6 lg:col-span-2">
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter leading-none group cursor-default">
               <span className="inline-block bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent hover:from-secondary hover:via-primary hover:to-secondary transition-all duration-500">
                 FAYAZ
@@ -25,38 +25,30 @@ const Footer = React.memo(() => {
             </p>
           </div>
 
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6 md:space-y-8 flex flex-col items-start lg:items-end text-left lg:text-right lg:col-span-1">
             <h4 className="text-primary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-primary w-fit pb-2">DIRECTORY</h4>
-            <nav className="flex flex-col gap-4 font-black text-base md:text-lg uppercase tracking-widest">
-              <a href="#about" className="hover:text-primary transition-all hover:translate-x-3 inline-block" aria-label="Navigate to About section">01_IDENTITY</a>
-              <a href="#projects" className="hover:text-primary transition-all hover:translate-x-3 inline-block" aria-label="Navigate to Projects section">02_ARTIFACTS</a>
-              <a href="#contact" className="hover:text-primary transition-all hover:translate-x-3 inline-block" aria-label="Navigate to Contact section">03_CONNECT</a>
+            <nav className="flex flex-col items-start lg:items-end gap-4 font-black text-base md:text-lg uppercase tracking-widest">
+              <a href="#about" className="hover:text-primary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block animate-left-slide" aria-label="Navigate to About section">01_IDENTITY</a>
+              <a href="#projects" className="hover:text-primary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block animate-left-slide" aria-label="Navigate to Projects section">02_ARTIFACTS</a>
+              <a href="#contact" className="hover:text-primary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block" aria-label="Navigate to Contact section">03_CONNECT</a>
             </nav>
           </div>
 
-          <div className="space-y-6 md:space-y-8">
+          <div className="space-y-6 md:space-y-8 flex flex-col items-start lg:items-end text-left lg:text-right lg:col-span-1">
             <h4 className="text-secondary font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-secondary w-fit pb-2">ENDPOINTS</h4>
-            <nav className="flex flex-col gap-4 font-black text-base md:text-lg uppercase tracking-widest text-white/60">
-              <a href="https://github.com/Fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block" aria-label="Visit GitHub Profile">GITHUB.COM</a>
-              <a href="https://linkedin.com/in/fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block" aria-label="Visit LinkedIn Profile">LINKEDIN.COM</a>
-              <a href="https://www.instagram.com/fayaz_unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block" aria-label="Visit Instagram Profile">INSTAGRAM.COM</a>
-              <a href="https://x.com/fayaz_unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 inline-block" aria-label="Visit X Profile">X.COM</a>
+            <nav className="flex flex-col items-start lg:items-end gap-4 font-black text-base md:text-lg uppercase tracking-widest text-white/60">
+              <a href="https://github.com/Fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block" aria-label="Visit GitHub Profile">GITHUB.COM</a>
+              <a href="https://linkedin.com/in/fayaz-unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block" aria-label="Visit LinkedIn Profile">LINKEDIN.COM</a>
+              <a href="https://www.instagram.com/fayaz_unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block" aria-label="Visit Instagram Profile">INSTAGRAM.COM</a>
+              <a href="https://x.com/fayaz_unas" target="_blank" rel="noreferrer" className="hover:text-secondary transition-all hover:translate-x-3 lg:hover:-translate-x-3 inline-block" aria-label="Visit X Profile">X.COM</a>
             </nav>
-          </div>
-
-          <div className="space-y-6 md:space-y-8">
-            <h4 className="text-success font-black uppercase tracking-[0.4em] text-[10px] md:text-[12px] border-b-4 border-success w-fit pb-2">LOCATION</h4>
-            <div className="text-base md:text-lg font-black uppercase tracking-[0.2em] text-white/60 leading-tight">
-              KOCHI, KERALA<br />
-              INDIA [UTC+5:30]<br />
-            </div>
           </div>
         </div>
 
         {/* Final Baseline */}
         <div className="flex flex-col lg:flex-row justify-between items-center gap-6 pt-10 border-t-2 border-white/10">
           <span className="text-[9px] font-black uppercase tracking-[0.5em] text-white/50">© 2026 FAYAZ UNAS — ENGINEERED WITH PRECISION</span>
-          <button 
+          <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="bg-black border-2 border-white/30 hover:border-primary px-6 py-2 font-black uppercase tracking-widest text-xs hover:text-primary transition-all group"
             aria-label="Scroll back to top"
